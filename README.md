@@ -1,2 +1,2 @@
-# FIT5171_2020_03
-FIT5171_assignment1
+# fit5171_2020_03
+fit5171 assignment1
