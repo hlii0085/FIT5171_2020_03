@@ -29,6 +29,12 @@ class TrackTest {
         assertThrows(NullPointerException.class, () -> track.setTrackName(null));
     }
 
+    @Test
+    @DisplayName("Musician cannot be null")
+    public void musicianCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> track.setMusician(null));
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "    \t"})
     @DisplayName("Track name cannot be empty or blank")

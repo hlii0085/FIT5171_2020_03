@@ -20,21 +20,22 @@ public class Track  extends Entity {
 
     private String length;
 
-    private Musician musician;
+    private Set<Musician> musician;
 
     public Track(String trackName) {
         notNull(trackName);
         notBlank(trackName);
         this.trackName = trackName;
         this.length = null;
-        musician = new Musician(null);
+        musician = Sets.newHashSet();
     }
 
-    public Musician getMusician() {
+    public Set<Musician> getMusician() {
         return musician;
     }
 
-    public void setMusician(Musician musician) {
+    public void setMusician(Set<Musician> musician) {
+        notNull(musician);
         this.musician = musician;
     }
 
