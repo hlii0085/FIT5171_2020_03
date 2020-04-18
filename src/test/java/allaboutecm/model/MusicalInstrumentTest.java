@@ -38,6 +38,4 @@ class MusicalInstrumentTest {
     public void lengthCannotBeNull() {
         assertThrows(NullPointerException.class, () -> musicalInstrument.setName(null));
     }
-
-
 }
