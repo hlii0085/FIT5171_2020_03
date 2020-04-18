@@ -122,31 +122,11 @@ class AlbumUnitTest {
     @Test
     @DisplayName("Two tracks in the same album having the same name is not permitted")
     public void twoTracksCannotHaveSameNameWithinOneAlbum() {
-        List<String> tl = new ArrayList<>();
-        tl.add("qinghuaci");
-        tl.add("niuzaihenmang");
-        tl.add("niuzaihenmang");
-        assertThrows(IllegalArgumentException.class, () -> album.setTracks(tl));
-    }
-
-    @Test
-    @DisplayName("Element in tracklist cannot be empty or blank")
-    public void elementInTracklistCannotBeEmptyOrBlank() {
-        List<String> tl = new ArrayList<>();
-        tl.add("qinghuaci");
-        tl.add("niuzaihenmang");
-        tl.add("  ");
-        tl.add("    \t");
-        assertThrows(IllegalArgumentException.class, () -> album.setTracks(tl));
-    }
-
-    @Test
-    @DisplayName("Element in tracklist cannot be null")
-    public void elementInTracklistCannotBeNull() {
-        List<String> tl = new ArrayList<>();
-        tl.add("qinghuaci");
-        tl.add("niuzaihenmang");
-        tl.add(null);
+        List<Track> tl = new ArrayList<>();
+        Track track1 = new Track("qinghuaci");
+        Track track2 = new Track("qinghuaci");
+        tl.add(track1);
+        tl.add(track2);
         assertThrows(IllegalArgumentException.class, () -> album.setTracks(tl));
     }
 

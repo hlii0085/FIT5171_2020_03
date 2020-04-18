@@ -8,7 +8,6 @@ import static org.apache.commons.lang3.Validate.notNull;
 public class MusicalInstrument extends Entity {
     private String name;
 
-
     public MusicalInstrument(String name) {
         this.name = name;
     }
@@ -18,6 +17,8 @@ public class MusicalInstrument extends Entity {
     }
 
     public void setName(String name) {
+        notNull(name);
+        notBlank(name);
         this.name = name;
     }
 

@@ -37,7 +37,7 @@ public class Album extends Entity {
 
     private URL albumURL;
 
-    private List<String> tracks;
+    private List<Track> tracks;
 
     public Album(int releaseYear, String recordNumber, String albumName) {
         notNull(recordNumber);
@@ -123,7 +123,7 @@ public class Album extends Entity {
         notNull(instruments);
 
         if (instruments.size() == 0) {
-            throw new IllegalArgumentException("Track list contains no tracks");
+            throw new IllegalArgumentException("Instrument list contains no tracks");
         }
 
         this.instruments = instruments;
@@ -138,18 +138,21 @@ public class Album extends Entity {
         this.albumURL = albumURL;
     }
 
-    public List<String> getTracks() {
+    public List<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<String> tracks) {
+    public void setTracks(List<Track> tracks) {
         notNull(tracks);
+        if (tracks.size() == 0) {
+            throw new IllegalArgumentException("Track list contains no tracks");
+        }
 
         if (tracks.size() != 0) {
-            for (String track : tracks) {
+            for (Track track : tracks) {
                 notNull(track);
-                notBlank(track);
-                for (String tra : tracks) {
+
+                for (Track tra : tracks) {
                     if (track.equals(tra)) {
                         throw new IllegalArgumentException("Two tracks in the same album having the same name is not permitted");
                     }
