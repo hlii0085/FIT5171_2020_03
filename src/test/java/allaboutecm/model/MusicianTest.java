@@ -174,10 +174,11 @@ class MusicianTest {
         Set<Album> albums = new HashSet<Album>();
         Album albumA = new Album(1999,"123","albumOne");
         Album albumB = new Album(1999,"123","albumOne");
+        Album albumC = new Album(1989,"1234","albumTwo");
         albums.add(albumA);
         albums.add(albumB);
-        musician.setAlbums(albums);
-        assertEquals(1,albums.size(),"two same albums are one album");
+        albums.add(albumC);
+        assertThrows(IllegalArgumentException.class, () ->musician.setAlbums(albums));
     }
 
     @Test

@@ -52,7 +52,7 @@ public class Album extends Entity {
 
         this.releaseYear = releaseYear;
         this.recordNumber = recordNumber;
-        this.albumName = null;
+        this.albumName = albumName;
         this.releaseFormat = null;
         this.genre = null;
         this.style = null;

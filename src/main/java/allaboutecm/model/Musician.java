@@ -75,6 +75,13 @@ public class Musician extends Entity {
 
     public void setAlbums(Set<Album> albums) {
         notNull(albums);
+        for (Album album : albums){
+            for (Album alb : albums){
+                if (album.equals(alb)){
+                    throw new IllegalArgumentException("There are same");
+                }
+            }
+        }
         this.albums = albums;
     }
 
