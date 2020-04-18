@@ -96,6 +96,13 @@ class AlbumUnitTest {
     }
 
     @Test
+    @DisplayName("There is at least one featured artist")
+    public void featuredArtistAtLeastOne() {
+        Set<Musician> musicians = new HashSet<>();
+        assertThrows(IllegalArgumentException.class, () -> album.setFeaturedMusicians(musicians));
+    }
+
+    @Test
     @DisplayName("Instrument cannot be null")
     public void instrumentCannotBeNull() {
         assertThrows(NullPointerException.class, () -> album.setInstruments(null));
@@ -106,6 +113,19 @@ class AlbumUnitTest {
     public void instrumentAtLeastOne() {
         Set<MusicianInstrument> mi = new HashSet<>();
         assertThrows(IllegalArgumentException.class, () -> album.setInstruments(mi));
+    }
+
+    @Test
+    @DisplayName("Group cannot be null")
+    public void groupCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setGroup(null));
+    }
+
+    @Test
+    @DisplayName("There is at least one group")
+    public void groupAtLeastOne() {
+        Set<Group> group = new HashSet<>();
+        assertThrows(IllegalArgumentException.class, () -> album.setGroup(group));
     }
 
     @Test

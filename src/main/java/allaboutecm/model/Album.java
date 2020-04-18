@@ -41,6 +41,8 @@ public class Album extends Entity {
 
     private List<Comment> comments;
 
+    private Set<Group> group;
+
     public Album(int releaseYear, String recordNumber, String albumName) {
         notNull(recordNumber);
         notNull(albumName);
@@ -62,6 +64,7 @@ public class Album extends Entity {
         instruments = Sets.newHashSet();
         tracks = Lists.newArrayList();
         comments = Lists.newArrayList();
+        group = Sets.newHashSet();
     }
 
     public String getReleaseFormat() {
@@ -115,7 +118,25 @@ public class Album extends Entity {
     public void setFeaturedMusicians(Set<Musician> featuredMusicians) {
         notNull(featuredMusicians);
 
+        if (featuredMusicians.size() == 0) {
+            throw new IllegalArgumentException("Featured artist list contains no artist");
+        }
+
         this.featuredMusicians = featuredMusicians;
+    }
+
+    public Set<Group> getGroup() {
+        return group;
+    }
+
+    public void setGroup(Set<Group> group) {
+        notNull(group);
+
+        if (group.size() == 0) {
+            throw new IllegalArgumentException("Group list contains no instrument");
+        }
+
+        this.group = group;
     }
 
     public Set<MusicianInstrument> getInstruments() {
@@ -126,7 +147,7 @@ public class Album extends Entity {
         notNull(instruments);
 
         if (instruments.size() == 0) {
-            throw new IllegalArgumentException("Instrument list contains no tracks");
+            throw new IllegalArgumentException("Instrument list contains no instrument");
         }
 
         this.instruments = instruments;
