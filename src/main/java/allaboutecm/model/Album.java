@@ -21,6 +21,12 @@ public class Album extends Entity {
 
     private int releaseYear;
 
+    private String releaseFormat;
+
+    private String genre;
+
+    private String style;
+
     private String recordNumber;
 
     private String albumName;
@@ -42,13 +48,50 @@ public class Album extends Entity {
 
         this.releaseYear = releaseYear;
         this.recordNumber = recordNumber;
-        this.albumName = albumName;
+        this.albumName = null;
+        this.releaseFormat = null;
+        this.genre = null;
+        this.style = null;
+
 
         this.albumURL = null;
 
         featuredMusicians = Sets.newHashSet();
         instruments = Sets.newHashSet();
         tracks = Lists.newArrayList();
+    }
+
+    public String getReleaseFormat() {
+        return releaseFormat;
+    }
+
+    public void setReleaseFormat(String releaseFormat) {
+        notNull(releaseFormat);
+        notBlank(releaseFormat);
+
+        this.releaseFormat = releaseFormat;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        notNull(genre);
+        notBlank(genre);
+
+        this.genre = genre;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        notNull(style);
+        notBlank(style);
+
+        this.style = style;
     }
 
     public String getRecordNumber() {

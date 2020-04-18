@@ -37,6 +37,45 @@ class AlbumUnitTest {
     }
 
     @Test
+    @DisplayName("Release Format cannot be null")
+    public void releaseFormatCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setReleaseFormat(null));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "    \t"})
+    @DisplayName("Release Format cannot be empty or blank")
+    public void releaseFormatCannotBeEmptyOrBlank(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> album.setReleaseFormat(arg));
+    }
+
+    @Test
+    @DisplayName("Genre cannot be null")
+    public void genreCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setGenre(null));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "    \t"})
+    @DisplayName("Genre cannot be empty or blank")
+    public void genreCannotBeEmptyOrBlank(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> album.setGenre(arg));
+    }
+
+    @Test
+    @DisplayName("Style cannot be null")
+    public void styleCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setStyle(null));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "    \t"})
+    @DisplayName("Style cannot be empty or blank")
+    public void styleCannotBeEmptyOrBlank(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> album.setStyle(arg));
+    }
+
+    @Test
     @DisplayName("Album name cannot be null")
     public void albumNameCannotBeNull() {
         assertThrows(NullPointerException.class, () -> album.setAlbumName(null));

@@ -32,7 +32,7 @@ public class Musician extends Entity {
     public Musician(String name) {
         this.name = name;
         this.musicianUrl = null;
-        this.biography = "";
+        this.biography = null;
         this.wikipediaUrl = null;
         fanSites = Sets.newLinkedHashSet();
         albums = Sets.newLinkedHashSet();
