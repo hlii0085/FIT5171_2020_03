@@ -39,6 +39,8 @@ public class Album extends Entity {
 
     private List<Track> tracks;
 
+    private List<Comment> comments;
+
     public Album(int releaseYear, String recordNumber, String albumName) {
         notNull(recordNumber);
         notNull(albumName);
@@ -59,6 +61,7 @@ public class Album extends Entity {
         featuredMusicians = Sets.newHashSet();
         instruments = Sets.newHashSet();
         tracks = Lists.newArrayList();
+        comments = Lists.newArrayList();
     }
 
     public String getReleaseFormat() {
@@ -138,6 +141,17 @@ public class Album extends Entity {
         this.albumURL = albumURL;
     }
 
+    public List<Comment> getComment() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        notNull(comments);
+        if (comments.size() == 0) {
+            throw new IllegalArgumentException("Comment list contains no comment");
+        }
+    }
+
     public List<Track> getTracks() {
         return tracks;
     }
@@ -145,7 +159,7 @@ public class Album extends Entity {
     public void setTracks(List<Track> tracks) {
         notNull(tracks);
         if (tracks.size() == 0) {
-            throw new IllegalArgumentException("Track list contains no tracks");
+            throw new IllegalArgumentException("Track list contains no track");
         }
 
         if (tracks.size() != 0) {

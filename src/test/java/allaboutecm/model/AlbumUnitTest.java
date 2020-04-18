@@ -1,5 +1,6 @@
 package allaboutecm.model;
 
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -114,9 +115,29 @@ class AlbumUnitTest {
     }
 
     @Test
+    @DisplayName("Comments cannot be null")
+    public void commentsCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setComments(null));
+    }
+
+    @Test
+    @DisplayName("There is at least one comment")
+    public void commentAtLeastOne() {
+        List<Comment> comment = Lists.newArrayList();
+        assertThrows(IllegalArgumentException.class, () -> album.setComments(comment));
+    }
+
+    @Test
     @DisplayName("Tracks cannot be null")
     public void tracksCannotBeNull() {
         assertThrows(NullPointerException.class, () -> album.setTracks(null));
+    }
+
+    @Test
+    @DisplayName("There is at least one track")
+    public void trackAtLeastOne() {
+        List<Track> tracks = Lists.newArrayList();
+        assertThrows(IllegalArgumentException.class, () -> album.setTracks(tracks));
     }
 
     @Test
