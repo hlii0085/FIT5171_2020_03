@@ -1,5 +1,6 @@
 package allaboutecm.model;
 
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,45 @@ class AlbumUnitTest {
     }
 
     @Test
+    @DisplayName("Release Format cannot be null")
+    public void releaseFormatCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setReleaseFormat(null));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "    \t"})
+    @DisplayName("Release Format cannot be empty or blank")
+    public void releaseFormatCannotBeEmptyOrBlank(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> album.setReleaseFormat(arg));
+    }
+
+    @Test
+    @DisplayName("Genre cannot be null")
+    public void genreCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setGenre(null));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "    \t"})
+    @DisplayName("Genre cannot be empty or blank")
+    public void genreCannotBeEmptyOrBlank(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> album.setGenre(arg));
+    }
+
+    @Test
+    @DisplayName("Style cannot be null")
+    public void styleCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setStyle(null));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "    \t"})
+    @DisplayName("Style cannot be empty or blank")
+    public void styleCannotBeEmptyOrBlank(String arg) {
+        assertThrows(IllegalArgumentException.class, () -> album.setStyle(arg));
+    }
+
+    @Test
     @DisplayName("Album name cannot be null")
     public void albumNameCannotBeNull() {
         assertThrows(NullPointerException.class, () -> album.setAlbumName(null));
@@ -56,6 +96,13 @@ class AlbumUnitTest {
     }
 
     @Test
+    @DisplayName("There is at least one featured artist")
+    public void featuredArtistAtLeastOne() {
+        Set<Musician> musicians = new HashSet<>();
+        assertThrows(IllegalArgumentException.class, () -> album.setFeaturedMusicians(musicians));
+    }
+
+    @Test
     @DisplayName("Instrument cannot be null")
     public void instrumentCannotBeNull() {
         assertThrows(NullPointerException.class, () -> album.setInstruments(null));
@@ -69,9 +116,35 @@ class AlbumUnitTest {
     }
 
     @Test
+    @DisplayName("Group cannot be null")
+    public void groupCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setGroup(null));
+    }
+
+    @Test
+    @DisplayName("There is at least one group")
+    public void groupAtLeastOne() {
+        Set<Group> group = new HashSet<>();
+        assertThrows(IllegalArgumentException.class, () -> album.setGroup(group));
+    }
+
+    @Test
     @DisplayName("Album URL cannot be null")
     public void albumURLCannotBeNull() {
         assertThrows(NullPointerException.class, () -> album.setAlbumURL(null));
+    }
+
+    @Test
+    @DisplayName("Comments cannot be null")
+    public void commentsCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> album.setComments(null));
+    }
+
+    @Test
+    @DisplayName("There is at least one comment")
+    public void commentAtLeastOne() {
+        List<Comment> comment = Lists.newArrayList();
+        assertThrows(IllegalArgumentException.class, () -> album.setComments(comment));
     }
 
     @Test
@@ -81,33 +154,20 @@ class AlbumUnitTest {
     }
 
     @Test
+    @DisplayName("There is at least one track")
+    public void trackAtLeastOne() {
+        List<Track> tracks = Lists.newArrayList();
+        assertThrows(IllegalArgumentException.class, () -> album.setTracks(tracks));
+    }
+
+    @Test
     @DisplayName("Two tracks in the same album having the same name is not permitted")
     public void twoTracksCannotHaveSameNameWithinOneAlbum() {
-        List<String> tl = new ArrayList<>();
-        tl.add("qinghuaci");
-        tl.add("niuzaihenmang");
-        tl.add("niuzaihenmang");
-        assertThrows(IllegalArgumentException.class, () -> album.setTracks(tl));
-    }
-
-    @Test
-    @DisplayName("Element in tracklist cannot be empty or blank")
-    public void elementInTracklistCannotBeEmptyOrBlank() {
-        List<String> tl = new ArrayList<>();
-        tl.add("qinghuaci");
-        tl.add("niuzaihenmang");
-        tl.add("  ");
-        tl.add("    \t");
-        assertThrows(IllegalArgumentException.class, () -> album.setTracks(tl));
-    }
-
-    @Test
-    @DisplayName("Element in tracklist cannot be null")
-    public void elementInTracklistCannotBeNull() {
-        List<String> tl = new ArrayList<>();
-        tl.add("qinghuaci");
-        tl.add("niuzaihenmang");
-        tl.add(null);
+        List<Track> tl = new ArrayList<>();
+        Track track1 = new Track("qinghuaci");
+        Track track2 = new Track("qinghuaci");
+        tl.add(track1);
+        tl.add(track2);
         assertThrows(IllegalArgumentException.class, () -> album.setTracks(tl));
     }
 

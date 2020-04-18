@@ -21,6 +21,12 @@ public class Album extends Entity {
 
     private int releaseYear;
 
+    private String releaseFormat;
+
+    private String genre;
+
+    private String style;
+
     private String recordNumber;
 
     private String albumName;
@@ -31,7 +37,11 @@ public class Album extends Entity {
 
     private URL albumURL;
 
-    private List<String> tracks;
+    private List<Track> tracks;
+
+    private List<Comment> comments;
+
+    private Set<Group> group;
 
     public Album(int releaseYear, String recordNumber, String albumName) {
         notNull(recordNumber);
@@ -42,13 +52,52 @@ public class Album extends Entity {
 
         this.releaseYear = releaseYear;
         this.recordNumber = recordNumber;
-        this.albumName = albumName;
+        this.albumName = null;
+        this.releaseFormat = null;
+        this.genre = null;
+        this.style = null;
+
 
         this.albumURL = null;
 
         featuredMusicians = Sets.newHashSet();
         instruments = Sets.newHashSet();
         tracks = Lists.newArrayList();
+        comments = Lists.newArrayList();
+        group = Sets.newHashSet();
+    }
+
+    public String getReleaseFormat() {
+        return releaseFormat;
+    }
+
+    public void setReleaseFormat(String releaseFormat) {
+        notNull(releaseFormat);
+        notBlank(releaseFormat);
+
+        this.releaseFormat = releaseFormat;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        notNull(genre);
+        notBlank(genre);
+
+        this.genre = genre;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        notNull(style);
+        notBlank(style);
+
+        this.style = style;
     }
 
     public String getRecordNumber() {
@@ -69,7 +118,25 @@ public class Album extends Entity {
     public void setFeaturedMusicians(Set<Musician> featuredMusicians) {
         notNull(featuredMusicians);
 
+        if (featuredMusicians.size() == 0) {
+            throw new IllegalArgumentException("Featured artist list contains no artist");
+        }
+
         this.featuredMusicians = featuredMusicians;
+    }
+
+    public Set<Group> getGroup() {
+        return group;
+    }
+
+    public void setGroup(Set<Group> group) {
+        notNull(group);
+
+        if (group.size() == 0) {
+            throw new IllegalArgumentException("Group list contains no instrument");
+        }
+
+        this.group = group;
     }
 
     public Set<MusicianInstrument> getInstruments() {
@@ -80,7 +147,7 @@ public class Album extends Entity {
         notNull(instruments);
 
         if (instruments.size() == 0) {
-            throw new IllegalArgumentException("Track list contains no tracks");
+            throw new IllegalArgumentException("Instrument list contains no instrument");
         }
 
         this.instruments = instruments;
@@ -95,18 +162,32 @@ public class Album extends Entity {
         this.albumURL = albumURL;
     }
 
-    public List<String> getTracks() {
+    public List<Comment> getComment() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        notNull(comments);
+        if (comments.size() == 0) {
+            throw new IllegalArgumentException("Comment list contains no comment");
+        }
+    }
+
+    public List<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<String> tracks) {
+    public void setTracks(List<Track> tracks) {
         notNull(tracks);
+        if (tracks.size() == 0) {
+            throw new IllegalArgumentException("Track list contains no track");
+        }
 
         if (tracks.size() != 0) {
-            for (String track : tracks) {
+            for (Track track : tracks) {
                 notNull(track);
-                notBlank(track);
-                for (String tra : tracks) {
+
+                for (Track tra : tracks) {
                     if (track.equals(tra)) {
                         throw new IllegalArgumentException("Two tracks in the same album having the same name is not permitted");
                     }
