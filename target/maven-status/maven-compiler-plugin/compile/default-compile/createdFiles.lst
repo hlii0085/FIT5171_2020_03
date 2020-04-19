@@ -1,0 +1,8 @@
+allaboutecm/model/Group.class
+allaboutecm/model/Album.class
+allaboutecm/model/MusicalInstrument.class
+allaboutecm/model/Musician.class
+allaboutecm/model/MusicianInstrument.class
+allaboutecm/model/Comment.class
+allaboutecm/model/Entity.class
+allaboutecm/model/Track.class

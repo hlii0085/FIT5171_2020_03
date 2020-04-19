@@ -16,7 +16,7 @@ import static org.apache.commons.lang3.Validate.notNull;
  * See {@https://www.ecmrecords.com/artists/1435045745}
  */
 public class Musician extends Entity {
-    private String  name;
+    private String name;
 
     private URL musicianUrl;
 

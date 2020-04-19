@@ -49,8 +49,6 @@ public class Comment extends Entity {
         if (reviews.size() != 0) {
             for (String review : reviews) {
                 notBlank(review); }
-        } else {
-            throw new IllegalArgumentException("Element in review list cannot be empty or blank");
         }
         this.reviews = reviews;
     }
@@ -71,9 +69,7 @@ public class Comment extends Entity {
                 if (rating < 0 || rating > 100) {
                     throw new IllegalArgumentException("Rating should between 0-100");
                 }
-        }} else {
-            throw new IllegalArgumentException("Element in review list cannot be empty or blank");
-        }
+        }}
         this.ratings = ratings;
     }
 }
