@@ -42,6 +42,12 @@ public class Comment extends Entity {
     public void setReview(List<String> reviews) {
         notNull(reviews);
 
+        for (String review : reviews) {
+            if (review.length() > 500) {
+                throw new IllegalArgumentException("The length of the review should within 500");
+            }
+        }
+
         if (reviews.size() == 0) {
             throw new IllegalArgumentException("Review list contains no review");
         }
