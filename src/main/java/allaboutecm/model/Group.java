@@ -2,6 +2,7 @@ package allaboutecm.model;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import jdk.nashorn.internal.objects.annotations.Property;
 
 import java.net.URL;
 import java.time.Year;
@@ -12,13 +13,16 @@ import java.util.Set;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
-
+@NodeEntity
 public class Group extends Entity {
 
+    @Property(name="name")
     private String name;
 
+    @Relationship(type="musicians")
     private Set<Musician> musicians;
 
+    @Relationship(type="albums")
     private Set<Album> albums;
 
     public Group(String name) {

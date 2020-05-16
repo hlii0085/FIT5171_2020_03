@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MusicianTest {
 
@@ -33,6 +34,7 @@ class MusicianTest {
     @DisplayName("Musician name cannot be null")
     public void testNameCannotBeNull() {
         assertThrows(NullPointerException.class, () -> musician.setName(null));
+        assertThrows(NullPointerException.class, () -> new Musician(null));
     }
 
     /**

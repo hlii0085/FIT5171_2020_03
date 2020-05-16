@@ -1,7 +1,9 @@
 package allaboutecm.model;
 
-import java.util.Objects;
+import com.google.common.collect.Sets;
 
+import java.util.Objects;
+import java.util.Set;
 import static org.apache.commons.lang3.Validate.notNull;
 
 /**
@@ -12,11 +14,17 @@ import static org.apache.commons.lang3.Validate.notNull;
  * See {@https://www.ecmrecords.com/catalogue/143038750696/the-koln-concert-keith-jarrett}
  *
  */
-public class MusicianInstrument extends Entity {
-    private Musician musician;
-    private MusicalInstrument musicalInstrument;
 
-    public MusicianInstrument(Musician musician, MusicalInstrument musicalInstrument) {
+@NodeEntity
+public class MusicianInstrument extends Entity {
+    @JsonIgnore
+    @Relationship(type="musician")
+    private Musician musician;
+
+    @Relationship(type="musicalInstrument")
+    private Set<MusicalInstrument> musicalInstrument;
+
+    public MusicianInstrument(Musician musician, Set<MusicalInstrument> musicalInstrument) {
         notNull(musician);
         notNull(musicalInstrument);
 
@@ -34,12 +42,16 @@ public class MusicianInstrument extends Entity {
         this.musician = musician;
     }
 
-    public MusicalInstrument getMusicalInstrument() {
+    public Set<MusicalInstrument> getMusicalInstrument() {
         return musicalInstrument;
     }
 
-    public void setMusicalInstrument(MusicalInstrument musicalInstrument) {
+    public void setMusicalInstrument(Set<MusicalInstrument> musicalInstrument) {
         notNull(musicalInstrument);
+
+        if (musicalInstrument.size() == 0) {
+            throw new IllegalArgumentException("MusicalInstrument list contains no value");
+        }
         this.musicalInstrument = musicalInstrument;
     }
 

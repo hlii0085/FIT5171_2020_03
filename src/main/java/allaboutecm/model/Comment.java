@@ -1,8 +1,10 @@
 package allaboutecm.model;
 
 
+import allaboutecm.dataaccess.neo4j.URLConverter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import jdk.nashorn.internal.objects.annotations.Property;
 
 import java.net.URL;
 import java.time.Year;
@@ -13,12 +15,17 @@ import java.util.Set;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
+@NodeEntity
 public class Comment extends Entity {
 
+    @Convert(URLConverter.class)
+    @Property(name="webURL")
     private URL webURL;
 
+    @Relationship(type="reviews")
     private List<String> reviews;
 
+    @Relationship(type="ratings")
     private List<Integer> ratings;
 
     public Comment () {

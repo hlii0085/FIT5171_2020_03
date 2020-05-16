@@ -4,6 +4,7 @@ import allaboutecm.dataaccess.DAO;
 import allaboutecm.model.Album;
 import allaboutecm.model.Musician;
 import allaboutecm.model.MusicianInstrument;
+import allaboutecm.model.Track;
 import com.google.common.collect.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -228,7 +229,7 @@ public class ECMMiner {
                 if(album.getReleaseYear() == tempAlbum.getReleaseYear()){
                     countRelatedNumber++;
                 }
-                for(String track: tempAlbum.getTracks()){
+                for(Track track: tempAlbum.getTracks()){
                     if(album.getTracks().contains(track)){
                         countRelatedNumber++;
                     }

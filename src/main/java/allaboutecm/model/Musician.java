@@ -1,6 +1,8 @@
 package allaboutecm.model;
 
+import allaboutecm.dataaccess.neo4j.URLConverter;
 import com.google.common.collect.Sets;
+import jdk.nashorn.internal.objects.annotations.Property;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,21 +17,45 @@ import static org.apache.commons.lang3.Validate.notNull;
  *
  * See {@https://www.ecmrecords.com/artists/1435045745}
  */
+
+@NodeEntity
 public class Musician extends Entity {
+
+    @Property(name="name")
     private String name;
 
+    @Convert(URLConverter.class)
+    @Property(name="musicianUrl")
     private URL musicianUrl;
 
+    @Convert(URLConverter.class)
+    @Property(name="wikipediaUrl")
     private URL wikipediaUrl;
 
+    @Relationship(type="fanSites")
     private Set<URL> fanSites;
 
+    @Property(name="biography")
     private String biography;
 
+    @Relationship(type="albums")
     private Set<Album> albums;
 
 
     public Musician(String name) {
+        notNull(name);
+        notBlank(name);
+        String[] nameStrings = name.split(" ");
+        if(nameStrings.length == 1) {
+            throw new IllegalArgumentException("name must contain one blank");
+        } else {
+            for(String namePart: nameStrings) {
+                if(namePart.equals("")){
+                    throw new IllegalArgumentException("name must contain one blank");
+                }
+            }
+        }
+        notNull(albums);
         this.name = name;
         this.musicianUrl = null;
         this.biography = null;

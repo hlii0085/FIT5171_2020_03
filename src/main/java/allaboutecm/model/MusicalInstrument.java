@@ -1,11 +1,16 @@
 package allaboutecm.model;
 
+import jdk.nashorn.internal.objects.annotations.Property;
+
 import java.util.Objects;
 
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
+@NodeEntity
 public class MusicalInstrument extends Entity {
+
+    @Property(name="name")
     private String name;
 
     public MusicalInstrument(String name) {

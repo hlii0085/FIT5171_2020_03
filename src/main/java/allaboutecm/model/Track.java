@@ -3,6 +3,7 @@ package allaboutecm.model;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import jdk.nashorn.internal.objects.annotations.Property;
 
 import java.net.URL;
 import java.time.Year;
@@ -13,13 +14,16 @@ import java.util.Set;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
-
+@NodeEntity
 public class Track  extends Entity {
 
+    @Property(name="trackName")
     private String trackName;
 
+    @Property(name="length")
     private String length;
 
+    @Relationship(type="musician")
     private Set<Musician> musician;
 
     public Track(String trackName) {
