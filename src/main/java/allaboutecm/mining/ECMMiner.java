@@ -3,14 +3,12 @@ package allaboutecm.mining;
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.model.Album;
 import allaboutecm.model.Musician;
+import allaboutecm.model.MusicianInstrument;
 import com.google.common.collect.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * TODO: implement and test the methods in this class.
@@ -33,6 +31,9 @@ public class ECMMiner {
      * When startYear/endYear is negative, that means startYear/endYear is ignored.
      */
     public List<Musician> mostProlificMusicians(int k, int startYear, int endYear) {
+        if(k <= 0 || startYear < 0 || endYear < 0){
+            return Lists.newArrayList();
+        }
         Collection<Musician> musicians = dao.loadAll(Musician.class);
         Map<String, Musician> nameMap = Maps.newHashMap();
         for (Musician m : musicians) {
@@ -67,9 +68,7 @@ public class ECMMiner {
         sortedKeys.sort(Ordering.natural().reverse());
         for (Integer count : sortedKeys) {
             List<Musician> list = countMap.get(count);
-            if (list.size() >= k) {
-                break;
-            }
+
             if (result.size() + list.size() >= k) {
                 int newAddition = k - result.size();
                 for (int i = 0; i < newAddition; i++) {
@@ -89,8 +88,34 @@ public class ECMMiner {
      * @Param k the number of musicians to be returned.
      */
     public List<Musician> mostTalentedMusicians(int k) {
+        if (k < 0) {
+            return Lists.newArrayList();
+        } else {
+            Collection<MusicianInstrument> musicianInstruments = dao.loadAll(MusicianInstrument.class);
+            ListMultimap<Integer, Musician> musicianIntegerHashMap = MultimapBuilder.treeKeys().arrayListValues().build();
+            for (MusicianInstrument musicianInstrument : musicianInstruments) {
+                Musician musician = musicianInstrument.getMusician();
+                int size = musicianInstrument.getMusicalInstruments().size();
+                musicianIntegerHashMap.put(size, musician);
+            }
 
-        return Lists.newArrayList();
+            List<Musician> result = Lists.newArrayList();
+            List<Integer> sortedKeys = Lists.newArrayList(musicianIntegerHashMap.keySet());
+            sortedKeys.sort(Ordering.natural().reverse());
+
+            for (Integer count : sortedKeys) {
+                List<Musician> list = musicianIntegerHashMap.get(count);
+                if (result.size() + list.size() >= k) {
+                    int newAddition = k - result.size();
+                    for (int i = 0; i < newAddition; i++) {
+                        result.add(list.get(i));
+                    }
+                } else {
+                    result.addAll(list);
+                }
+            }
+            return result;
+        }
     }
 
     /**
@@ -100,7 +125,40 @@ public class ECMMiner {
      */
 
     public List<Musician> mostSocialMusicians(int k) {
-        return Lists.newArrayList();
+
+        if(k <= 0){
+            return Lists.newArrayList();
+        }
+        else{
+            Collection<Musician> musicians = dao.loadAll(Musician.class);
+            ListMultimap<Integer, Musician> musicianCoopResult = MultimapBuilder.treeKeys().arrayListValues().build();
+            for (Musician musician : musicians) {
+                Set<Album> albums = musician.getAlbums();
+                HashSet<Musician> coopMusician = new HashSet<>();
+                for(Album album: albums){
+                    List<Musician> musicianInAlbum = album.getFeaturedMusicians();
+                    coopMusician.addAll(Sets.newHashSet(musicianInAlbum));
+                }
+
+                musicianCoopResult.put(coopMusician.size() - 1, musician);
+            }
+            List<Musician> result = Lists.newArrayList();
+            List<Integer> sortedKeys = Lists.newArrayList(musicianCoopResult.keySet());
+            sortedKeys.sort(Ordering.natural().reverse());
+            for (Integer count : sortedKeys) {
+                List<Musician> list = musicianCoopResult.get(count);
+
+                if (result.size() + list.size() >= k) {
+                    int newAddition = k - result.size();
+                    for (int i = 0; i < newAddition; i++) {
+                        result.add(list.get(i));
+                    }
+                } else {
+                    result.addAll(list);
+                }
+            }
+            return result;
+        }
     }
 
     /**
@@ -110,7 +168,38 @@ public class ECMMiner {
      */
 
     public List<Integer> busiestYears(int k) {
-        return Lists.newArrayList();
+        if(k <= 0){
+            return Lists.newArrayList();
+        }
+        else{
+            Collection<Album> albums = dao.loadAll(Album.class);
+            ListMultimap<Integer, Album> yearHashMultiMap = MultimapBuilder.treeKeys().arrayListValues().build();
+            for (Album album : albums) {
+                yearHashMultiMap.put(album.getReleaseYear(),album);
+            }
+
+            ListMultimap <Integer, Integer> yearNumberHashMultiMap = MultimapBuilder.treeKeys().arrayListValues().build();
+            for(Integer year: yearHashMultiMap.keySet()){
+                yearNumberHashMultiMap.put(yearHashMultiMap.get(year).size(), year);
+            }
+            List<Integer> result = Lists.newArrayList();
+            List<Integer> sortedKeys = Lists.newArrayList(yearNumberHashMultiMap.keySet());
+            sortedKeys.sort(Ordering.natural().reverse());
+            for (Integer count : sortedKeys) {
+                List<Integer> list = yearNumberHashMultiMap.get(count);
+
+                if (result.size() + list.size() >= k) {
+                    int newAddition = k - result.size();
+                    for (int i = 0; i < newAddition; i++) {
+                        result.add(list.get(i));
+                    }
+                } else {
+                    result.addAll(list);
+                }
+            }
+
+            return result;
+        }
     }
 
     /**
@@ -123,6 +212,47 @@ public class ECMMiner {
      */
 
     public List<Album> mostSimilarAlbums(int k, Album album) {
-        return Lists.newArrayList();
+        if(k < 0|| album == null){
+            return Lists.newArrayList();
+        }
+        else{
+            Collection<Album> albums = dao.loadAll(Album.class);
+
+            ListMultimap<Integer, Album> albumListMultimap = MultimapBuilder.treeKeys().arrayListValues().build();
+
+            for(Album tempAlbum: albums){
+                int countRelatedNumber = 0;
+                if(album.getAlbumName().equals(tempAlbum.getAlbumName())){
+                    countRelatedNumber++;
+                }
+                if(album.getReleaseYear() == tempAlbum.getReleaseYear()){
+                    countRelatedNumber++;
+                }
+                for(String track: tempAlbum.getTracks()){
+                    if(album.getTracks().contains(track)){
+                        countRelatedNumber++;
+                    }
+                }
+
+                albumListMultimap.put(countRelatedNumber, tempAlbum);
+            }
+            List<Album> result = Lists.newArrayList();
+            List<Integer> sortedKeys = Lists.newArrayList(albumListMultimap.keySet());
+            sortedKeys.sort(Ordering.natural().reverse());
+            for (Integer count : sortedKeys) {
+                List<Album> list = albumListMultimap.get(count);
+
+                if (result.size() + list.size() >= k) {
+                    int newAddition = k - result.size();
+                    for (int i = 0; i < newAddition; i++) {
+                        result.add(list.get(i));
+                    }
+                } else {
+                    result.addAll(list);
+                }
+            }
+
+            return result;
+        }
     }
 }

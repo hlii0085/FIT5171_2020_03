@@ -3,11 +3,9 @@ package allaboutecm.dataaccess.neo4j;
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.model.Album;
 import allaboutecm.model.Musician;
+import allaboutecm.model.MusicianInstrument;
 import com.google.common.collect.Sets;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
@@ -19,8 +17,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * TODO: add test cases to adequately test the Neo4jDAO class.
@@ -113,4 +111,51 @@ class Neo4jDAOUnitTest {
         assertEquals(musician.getMusicianUrl(), loadedMusician.getMusicianUrl());
         assertEquals(musician.getAlbums(), loadedMusician.getAlbums());
     }
+
+    //查
+    @DisplayName("test whether can find musician by name")
+    @Test
+    public void testFindMusicianByName(){
+        Musician musician = new Musician("Keith Jarret");
+        dao.createOrUpdate(musician);
+        Musician loadedMusician = dao.findMusicianByName(musician.getName());
+        assertEquals(musician, loadedMusician, "the corresponding musician should be found");
+    }
+
+    //删 没有加内容在原来代码
+    @DisplayName("test delete musician will not delete album")
+    @Test
+    public void testDeleteMusicianNotDeleteAlbum() throws MalformedURLException{
+        Musician musician = new Musician("Keith Jarret");
+        musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        Album album = new Album(1975,"ECM 1862/65","The Köln Concert");
+
+        musician.setAlbums(Sets.newHashSet(album));
+
+        dao.createOrUpdate(album);
+        dao.createOrUpdate(musician);
+
+        assertNotNull(dao.load(Musician.class, musician.getId()).getId(), "Musician saved");
+        assertNotNull(dao.loadAll(Album.class),"Album saved");
+
+        dao.delete(musician);
+
+        assertTrue(dao.loadAll(Musician.class).isEmpty(), "musician should no longer exists");
+        assertFalse(dao.loadAll(Album.class).isEmpty(), "album should no longer exists" );
+    }
+
+    //加了delete
+    @DisplayName("test delete musician also delete the musician instrument")
+    @Test
+    public void testDeleteMusicianAlsoDeleteMusicianInstrument(){
+        Musician musician = new Musician("Keith Jarret");
+        dao.createOrUpdate(musician);
+        MusicianInstrument musicianInstrument = new MusicianInstrument();
+        musicianInstrument.setMusician(musician);
+        dao.createOrUpdate(musicianInstrument);
+        dao.delete(musician);
+        assertNull(dao.load(Musician.class,musician.getId()),"Musician should be delete");
+        assertNull(dao.load(MusicianInstrument.class,musicianInstrument.getId()),"Musician instrument should be delete");
+    }
+
 }
