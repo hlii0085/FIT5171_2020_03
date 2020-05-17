@@ -112,6 +112,54 @@ class Neo4jDAOUnitTest {
         assertEquals(musician.getAlbums(), loadedMusician.getAlbums());
     }
 
+    @Test
+    public void sameMusicianCannotBeSavedTwice() throws MalformedURLException{
+        Musician musician1 = new Musician("Taylor Swift");
+        musician1.setMusicianUrl(new URL("https://www.taylorswift.com/"));
+
+        dao.createOrUpdate(musician1);
+
+        Musician musician2 = new Musician("Taylor Swift");
+        musician2.setMusicianUrl(new URL("https://www.taylorswift.com/"));
+
+        dao.creatOrUpdate(musician2);
+
+        Collection<Musician> musiccians = dao.loadAll(Musician.class);
+        assertEquals(1, musicians.size());
+        assertEquals(musician1.getName(), musicians.iterator().next().getName());
+)
+    }
+    @Test
+    public void createThreeMusiciansSimultaneously(){
+        Set<Musicians> musicians = Sets.newHashSet(
+                new Musician("Claire Cottrill"),
+                new Musician("Ellie Rowsell"),
+                new Musician("Mckenna Petty")
+        );
+
+        for (Musician m : musicians){
+            dao.createOrUpdate(m);
+        }
+
+        Collection<Musician> loadedMusicians = dao.loadAll(Musician.class);
+        assertEquals(musicians.size(), loadedMusicians.size(), "same size");
+        for (Musician m : musicians){
+            assertTrune(musicians.contains(m), "contains " + m.getName());
+        }
+    }
+
+    @Test
+    public void musicianInformationCanBeUpdated() throw MalformedURLException{
+        Musician musician = new Musician("Paul Klein");
+        musician.setMusicianURL(("https://www.lany.com/"));
+
+        dao.createOrUpdate(musician);
+        musician.setName("Jake Goss");
+
+        Musician loadedMusician = dao.load(Musician.class, musician.getId());
+        assertEquals(musician.getName(), loadedMusician.getName());
+    }
+    
     //查
     @DisplayName("test whether can find musician by name")
     @Test
