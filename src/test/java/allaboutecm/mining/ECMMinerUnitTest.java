@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.time.Year;
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,6 +36,7 @@ class ECMMinerUnitTest {
         ecmMiner = new ECMMiner(dao);
     }
 
+    // Test mostProlificMusicians
     @Test
     public void shouldReturnTheMusicianWhenThereIsOnlyOne() {
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
@@ -48,7 +50,7 @@ class ECMMinerUnitTest {
         assertTrue(musicians.contains(musician));
     }
 
-    //k不合法返回空
+
     @DisplayName("when K invalid return empty list")
     @ParameterizedTest
     @ValueSource(ints = {-5, -1, 0})
@@ -63,7 +65,6 @@ class ECMMinerUnitTest {
         assertEquals(0,musicians.size());
     }
 
-    //start/end year不合法
     @DisplayName("when start year and end year invalid")
     @Test
     public void testMostProlificMusiciansReturnEmptyListWhenStartYearOrEndYearInvalid(){
@@ -78,9 +79,11 @@ class ECMMinerUnitTest {
 
         musicians = ecmMiner.mostProlificMusicians(1,1970,1969);
         assertEquals(0,musicians.size(),"the end year cannot before start year");
+
+        musicians = ecmMiner.mostProlificMusicians(1,2030,2100);
+        assertEquals(0,musicians.size(),"The year should before this year");
     }
 
-    //大于K只返回K个
     @DisplayName("when K larger than musicians")
     @ParameterizedTest
     @ValueSource(ints = {2, 100, 1000})
@@ -96,7 +99,7 @@ class ECMMinerUnitTest {
         assertTrue(musicians.contains(musician));
     }
 
-    //K大于等于musicians个数，只返回有的musicians的个数
+    //when K is greater than musicians return musicians we have
     @Test
     public void testMostProlificMusiciansKLargerAndEqualsMusiciansReturnMusiciansAmount(){
         HashSet<Album> musicianAAlbums = Sets.newHashSet(new Album(1975, "ECM 1064/65", "The Köln Concert"),
@@ -116,10 +119,7 @@ class ECMMinerUnitTest {
         assertTrue(musicians.contains(musicianA) || musicians.contains(musicianB));
     }
 
-
-
-
-    //测试MostTalentMusicians
+    // Test MostTalentMusicians
     @ParameterizedTest
     @ValueSource(ints = {-1, -2, 0})
     public void testMostTalentMusicians(int arg){
@@ -165,6 +165,34 @@ class ECMMinerUnitTest {
                 musicians.get(1).equals(new Musician("Tommy Ji")));
     }
 
+    // Test mostSocialMusicians
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, -2, 0})
+    public void testMostSocialMusicians(int arg){
+        Musician musicianA = new Musician("Keith Jarrett");
+        MusicianInstrument musicianInstrument = new MusicianInstrument(musicianA, Sets.newHashSet(new MusicalInstrument("Piano")));
+
+        when(dao.loadAll(MusicianInstrument.class)).thenReturn(Sets.newHashSet(musicianInstrument));
+        List<Musician> musicians = ecmMiner.mostSocialMusicians(arg);
+        assertEquals(0,musicians.size(),"the list should be empty if k is invalid");
+    }
+
+    @DisplayName("When K larger than musicians")
+    @ParameterizedTest
+    @ValueSource(ints = {2, 100, 1000})
+    public void testMostSocialMusiciansKLargerThanMusicians(int arg){
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        Musician musician = new Musician("Keith Jarrett");
+        musician.setAlbums(Sets.newHashSet(album));
+
+        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
+
+        List<Musician> musicians = ecmMiner.mostProlificMusicians(arg,1970,2000 );
+        assertEquals(1,musicians.size());
+        assertTrue(musicians.contains(musician));
+    }
+
     @Test
     public void mostSocialMusicianWithCommonK(){
         Musician musicianA = new Musician("A A");
@@ -197,6 +225,53 @@ class ECMMinerUnitTest {
         assertTrue(musicians.get(3).equals(musicianA));
     }
 
+    // Test busiest year
+    @DisplayName("When Busiest year is invalid")
+    @Test
+    public void test() {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        Musician musician = new Musician("Keith Jarrett");
+        musician.setAlbums(Sets.newHashSet(album));
 
+        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
 
+        List<Integer> ys = ecmMiner.busiestYears(0);
+        assertEquals(0, ys.size(), "The album can not be null");
+
+        ys = ecmMiner.busiestYears(-1);
+        assertEquals(0, ys.size(), "The album can not be nul");
+    }
+
+    // Test mostSimilarAlbums
+    @DisplayName("When K is invalid")
+    @Test
+    public void testMostSimilarAlbumsReturnEmptyListWhenKInvalid(){
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        Musician musician = new Musician("Keith Jarrett");
+        musician.setAlbums(Sets.newHashSet(album));
+
+        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
+
+        List<Album> albums = ecmMiner.mostSimilarAlbums(-1,album);
+        assertEquals(0,albums.size(),"the k should bigger than 0");
+
+        albums = ecmMiner.mostSimilarAlbums(0,album);
+        assertEquals(0,albums.size(),"the k should bigger than 0");
+    }
+
+    @DisplayName("When Album is Null")
+    @Test
+    public void testMostSimilarAlbumsReturnEmptyListWhenAlbumIsNull(){
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+        Musician musician = new Musician("Keith Jarrett");
+        musician.setAlbums(Sets.newHashSet(album));
+
+        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
+
+        List<Album> albums = ecmMiner.mostSimilarAlbums(3,null);
+        assertEquals(0,albums.size(),"The album can not be null");
+
+        albums = ecmMiner.mostSimilarAlbums(4,null);
+        assertEquals(0,albums.size(),"The album can not be nul");
+    }
 }

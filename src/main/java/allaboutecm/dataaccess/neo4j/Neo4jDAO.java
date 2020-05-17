@@ -26,11 +26,14 @@ public class Neo4jDAO implements DAO {
         this.session = session;
     }
 
+    // get one object
     @Override
     public <T extends Entity> T load(Class<T> clazz, Long id) {
+
         return session.load(clazz, id, DEPTH_ENTITY);
     }
 
+    // dao.createOrUpdate()
     @Override
     public <T extends Entity> T createOrUpdate(T entity) {
         Class clazz = entity.getClass();
@@ -46,6 +49,8 @@ public class Neo4jDAO implements DAO {
 
     }
 
+
+    // dao.loadAll(Musician.class) ==> select * from Musician
     @Override
     public <T extends Entity> Collection<T> loadAll(Class<T> clazz) {
         return session.loadAll(clazz, DEPTH_LIST);
@@ -53,12 +58,14 @@ public class Neo4jDAO implements DAO {
 
     }
 
+    // delete musician - album
+    // dao.delete() ==> delete from
     @Override
     public <T extends Entity> void delete(T entity) {
         Class clazz = entity.getClass();
         T existingEntity = findExistingEntity(entity, clazz);
         if (null == existingEntity) {
-            throw new IllegalArgumentException("the entity not exist");
+            throw new IllegalArgumentException("The entity not exist");
         } else if (clazz.equals(Musician.class)) {
             Musician musician = (Musician) entity;
             Collection<MusicianInstrument> musicianInstruments = this.loadAll(MusicianInstrument.class);

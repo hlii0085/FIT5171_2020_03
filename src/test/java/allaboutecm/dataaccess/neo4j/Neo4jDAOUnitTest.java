@@ -40,13 +40,15 @@ class Neo4jDAOUnitTest {
         // you just omit the URI attribute.
 
         // Impermanent embedded store
+        // virtual
         Configuration configuration = new Configuration.Builder().build();
 
         // Disk-based embedded store
         // Configuration configuration = new Configuration.Builder().uri(new File(TEST_DB).toURI().toString()).build();
 
         // HTTP data store, need to install the Neo4j desktop app and create & run a database first.
-//        Configuration configuration = new Configuration.Builder().uri("http://neo4j:password@localhost:7474").build();
+        //session.purgeDatabase();
+        //Configuration configuration = new Configuration.Builder().uri("http://neo4j:951228@localhost:7474").build();
 
         sessionFactory = new SessionFactory(configuration, Musician.class.getPackage().getName());
         session = sessionFactory.openSession();
@@ -56,8 +58,10 @@ class Neo4jDAOUnitTest {
 
     @AfterEach
     public void tearDownEach() {
+
         session.purgeDatabase();
     }
+    //empty database
 
     @AfterAll
     public static void tearDown() throws IOException {
@@ -77,6 +81,7 @@ class Neo4jDAOUnitTest {
 
     @Test
     public void successfulCreationAndLoadingOfMusician() throws MalformedURLException {
+        // test if the initial musician table is empty
         assertEquals(0, dao.loadAll(Musician.class).size());
 
         Musician musician = new Musician("Keith Jarrett");
@@ -162,8 +167,8 @@ class Neo4jDAOUnitTest {
         assertEquals(musician.getName(), loadedMusician.getName());
     }
     
-    //查
-    @DisplayName("test whether can find musician by name")
+    //search
+    @DisplayName("Test whether can find musician by name")
     @Test
     public void testFindMusicianByName(){
         Musician musician = new Musician("Keith Jarret");
@@ -172,8 +177,8 @@ class Neo4jDAOUnitTest {
         assertEquals(musician, loadedMusician, "the corresponding musician should be found");
     }
 
-    //删 没有加内容在原来代码
-    @DisplayName("test delete musician will not delete album")
+    //
+    @DisplayName("Test delete musician will not delete album")
     @Test
     public void testDeleteMusicianNotDeleteAlbum() throws MalformedURLException{
         Musician musician = new Musician("Keith Jarret");
@@ -194,8 +199,8 @@ class Neo4jDAOUnitTest {
         assertFalse(dao.loadAll(Album.class).isEmpty(), "album should no longer exists" );
     }
 
-    //加了delete
-    @DisplayName("test delete musician also delete the musician instrument")
+    //add delete
+    @DisplayName("Test delete musician also delete the musician instrument")
     @Test
     public void testDeleteMusicianAlsoDeleteMusicianInstrument(){
         Musician musician = new Musician("Keith Jarret");

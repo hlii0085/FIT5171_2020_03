@@ -9,6 +9,7 @@ import com.google.common.collect.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Year;
 import java.util.*;
 
 /**
@@ -32,7 +33,7 @@ public class ECMMiner {
      * When startYear/endYear is negative, that means startYear/endYear is ignored.
      */
     public List<Musician> mostProlificMusicians(int k, int startYear, int endYear) {
-        if(k <= 0 || startYear < 0 || endYear < 0){
+        if(k <= 0 || startYear < 0 || endYear < 0 || startYear > Year.now().getValue() || endYear > Year.now().getValue()){
             return Lists.newArrayList();
         }
         Collection<Musician> musicians = dao.loadAll(Musician.class);
