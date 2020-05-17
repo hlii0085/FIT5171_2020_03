@@ -1,5 +1,6 @@
 package allaboutecm.model;
 
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ class MusicianInstrumentTest {
     public void setUp() {
         Musician musician = new Musician("Keith Jarrett ");
         MusicalInstrument musicalInstrument = new MusicalInstrument("Piano");
-        musicianInstrument = new MusicianInstrument(musician, musicalInstrument);
+        musicianInstrument = new MusicianInstrument(musician, Sets.newHashSet(musicalInstrument));
     }
 
     @Test

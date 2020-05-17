@@ -42,7 +42,7 @@ class ECMMinerUnitTest {
         musician.setAlbums(Sets.newHashSet(album));
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
 
-        List<Musician> musicians = ecmMiner.mostProlificMusicians(5, -1, -1);
+        List<Musician> musicians = ecmMiner.mostProlificMusicians(5, 1970, 1980);
 
         assertEquals(1, musicians.size());
         assertTrue(musicians.contains(musician));
@@ -152,31 +152,31 @@ class ECMMinerUnitTest {
                         new Musician("Kainan Liang"), Sets.newHashSet(
                         new MusicalInstrument("Piano"),new MusicalInstrument("Violet"),new MusicalInstrument("trumpet"))),
                 new MusicianInstrument(
-                        new Musician("Tom"), Sets.newHashSet(
+                        new Musician("Tom Wang"), Sets.newHashSet(
                         new MusicalInstrument("Piano"),new MusicalInstrument("Violet"))),
                 new MusicianInstrument(
-                        new Musician("Tommy"), Sets.newHashSet(
+                        new Musician("Tommy Ji"), Sets.newHashSet(
                         new MusicalInstrument("Piano"),new MusicalInstrument("Violet"))));
         when(dao.loadAll(MusicianInstrument.class)).thenReturn(musicianInstruments);
         List<Musician> musicians = ecmMiner.mostTalentedMusicians(2);
         assertEquals(2, musicians.size());
         assertTrue(musicians.get(0).equals(new Musician("Kainan Liang")));
-        assertTrue(musicians.get(1).equals(new Musician("Tom")) ||
-                musicians.get(1).equals(new Musician("Tommy")));
+        assertTrue(musicians.get(1).equals(new Musician("Tom Wang") )||
+                musicians.get(1).equals(new Musician("Tommy Ji")));
     }
 
     @Test
     public void mostSocialMusicianWithCommonK(){
-        Musician musicianA = new Musician("A");
-        Musician musicianB = new Musician("B");
-        Musician musicianC = new Musician("C");
-        Musician musicianD = new Musician("D");
+        Musician musicianA = new Musician("A A");
+        Musician musicianB = new Musician("B B");
+        Musician musicianC = new Musician("C C");
+        Musician musicianD = new Musician("D D");
 
         Album albumA = new Album(1975, "ECM 1064/65", "The Köln Concert");
         Album albumB = new Album(1985, "ECM 1065/65", "The K Concert");
 
-        albumA.setFeaturedMusicians(Lists.newArrayList(musicianA, musicianB));
-        albumB.setFeaturedMusicians(Lists.newArrayList(musicianB, musicianC, musicianD));
+        albumA.setFeaturedMusicians(Sets.newHashSet(musicianA, musicianB));
+        albumB.setFeaturedMusicians(Sets.newHashSet(musicianB, musicianC, musicianD));
 
         musicianA.setAlbums(Sets.newHashSet(albumA));
         musicianB.setAlbums(Sets.newHashSet(albumA, albumB));

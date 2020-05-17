@@ -49,7 +49,7 @@ class GroupTest {
     @DisplayName("There should be at least two musicians")
     public void musicianAtLeastTwo() {
         Set<Musician> musicians = new HashSet<>();
-        Musician mmm = new Musician("zhoujielun");
+        Musician mmm = new Musician("zhou jielun");
         musicians.add(mmm);
         assertThrows(IllegalArgumentException.class, () -> group.setMusicians(musicians));
     }

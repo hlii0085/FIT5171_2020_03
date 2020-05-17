@@ -105,7 +105,7 @@ public class Neo4jDAO implements DAO {
             // MusicianInstrument
             MusicianInstrument musicianInstrument = (MusicianInstrument) entity;
             filters.add(new Filter("musician", EQUALS, musicianInstrument.getMusician()))
-                    .and(new Filter("musicalInstruments", EQUALS, musicianInstrument.getMusicalInstruments()));
+                    .and(new Filter("musicalInstruments", EQUALS, musicianInstrument.getMusicalInstrument()));
             collection = session.loadAll(MusicianInstrument.class, filters);
         }
         Entity existingEntity = null;

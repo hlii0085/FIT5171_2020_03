@@ -180,7 +180,7 @@ class MusicianTest {
         albums.add(albumA);
         albums.add(albumB);
         albums.add(albumC);
-        assertThrows(IllegalArgumentException.class, () ->musician.setAlbums(albums));
+        assertEquals(2, albums.size());
     }
 
     @Test

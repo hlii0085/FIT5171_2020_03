@@ -4,6 +4,8 @@ package allaboutecm.model;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import jdk.nashorn.internal.objects.annotations.Property;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 import java.net.URL;
 import java.time.Year;

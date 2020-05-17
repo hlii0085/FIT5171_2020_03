@@ -2,6 +2,7 @@ package allaboutecm.dataaccess.neo4j;
 
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.model.Album;
+import allaboutecm.model.MusicalInstrument;
 import allaboutecm.model.Musician;
 import allaboutecm.model.MusicianInstrument;
 import com.google.common.collect.Sets;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -78,7 +80,7 @@ class Neo4jDAOUnitTest {
         assertEquals(0, dao.loadAll(Musician.class).size());
 
         Musician musician = new Musician("Keith Jarrett");
-        musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        musician.setMusicianUrl("https://www.keithjarrett.org/");
 
         dao.createOrUpdate(musician);
         Musician loadedMusician = dao.load(Musician.class, musician.getId());
@@ -96,7 +98,7 @@ class Neo4jDAOUnitTest {
     @Test
     public void successfulCreationOfMusicianAndAlbum() throws MalformedURLException {
         Musician musician = new Musician("Keith Jarrett");
-        musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        musician.setMusicianUrl("https://www.keithjarrett.org/");
 
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
         musician.setAlbums(Sets.newHashSet(album));
@@ -115,23 +117,23 @@ class Neo4jDAOUnitTest {
     @Test
     public void sameMusicianCannotBeSavedTwice() throws MalformedURLException{
         Musician musician1 = new Musician("Taylor Swift");
-        musician1.setMusicianUrl(new URL("https://www.taylorswift.com/"));
+        musician1.setMusicianUrl("https://www.taylorswift.com/");
 
         dao.createOrUpdate(musician1);
 
         Musician musician2 = new Musician("Taylor Swift");
-        musician2.setMusicianUrl(new URL("https://www.taylorswift.com/"));
+        musician2.setMusicianUrl("https://www.taylorswift.com/");
 
-        dao.creatOrUpdate(musician2);
+        dao.createOrUpdate(musician2);
 
-        Collection<Musician> musiccians = dao.loadAll(Musician.class);
+        Collection<Musician> musicians = dao.loadAll(Musician.class);
         assertEquals(1, musicians.size());
         assertEquals(musician1.getName(), musicians.iterator().next().getName());
-)
     }
+
     @Test
     public void createThreeMusiciansSimultaneously(){
-        Set<Musicians> musicians = Sets.newHashSet(
+        Set<Musician> musicians = Sets.newHashSet(
                 new Musician("Claire Cottrill"),
                 new Musician("Ellie Rowsell"),
                 new Musician("Mckenna Petty")
@@ -144,14 +146,14 @@ class Neo4jDAOUnitTest {
         Collection<Musician> loadedMusicians = dao.loadAll(Musician.class);
         assertEquals(musicians.size(), loadedMusicians.size(), "same size");
         for (Musician m : musicians){
-            assertTrune(musicians.contains(m), "contains " + m.getName());
+            assertTrue(musicians.contains(m), "contains " + m.getName());
         }
     }
 
     @Test
-    public void musicianInformationCanBeUpdated() throw MalformedURLException{
+    public void musicianInformationCanBeUpdated() throws MalformedURLException{
         Musician musician = new Musician("Paul Klein");
-        musician.setMusicianURL(("https://www.lany.com/"));
+        musician.setMusicianUrl("https://www.lany.com/");
 
         dao.createOrUpdate(musician);
         musician.setName("Jake Goss");
@@ -175,7 +177,7 @@ class Neo4jDAOUnitTest {
     @Test
     public void testDeleteMusicianNotDeleteAlbum() throws MalformedURLException{
         Musician musician = new Musician("Keith Jarret");
-        musician.setMusicianUrl(new URL("https://www.keithjarrett.org/"));
+        musician.setMusicianUrl("https://www.keithjarrett.org/");
         Album album = new Album(1975,"ECM 1862/65","The Köln Concert");
 
         musician.setAlbums(Sets.newHashSet(album));
@@ -198,8 +200,9 @@ class Neo4jDAOUnitTest {
     public void testDeleteMusicianAlsoDeleteMusicianInstrument(){
         Musician musician = new Musician("Keith Jarret");
         dao.createOrUpdate(musician);
-        MusicianInstrument musicianInstrument = new MusicianInstrument();
-        musicianInstrument.setMusician(musician);
+        MusicianInstrument musicianInstrument = new MusicianInstrument(musician,
+                Sets.newHashSet(new MusicalInstrument("Violin")));
+
         dao.createOrUpdate(musicianInstrument);
         dao.delete(musician);
         assertNull(dao.load(Musician.class,musician.getId()),"Musician should be delete");

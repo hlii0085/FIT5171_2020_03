@@ -96,7 +96,7 @@ public class ECMMiner {
             ListMultimap<Integer, Musician> musicianIntegerHashMap = MultimapBuilder.treeKeys().arrayListValues().build();
             for (MusicianInstrument musicianInstrument : musicianInstruments) {
                 Musician musician = musicianInstrument.getMusician();
-                int size = musicianInstrument.getMusicalInstruments().size();
+                int size = musicianInstrument.getMusicalInstrument().size();
                 musicianIntegerHashMap.put(size, musician);
             }
 
@@ -137,7 +137,7 @@ public class ECMMiner {
                 Set<Album> albums = musician.getAlbums();
                 HashSet<Musician> coopMusician = new HashSet<>();
                 for(Album album: albums){
-                    List<Musician> musicianInAlbum = album.getFeaturedMusicians();
+                    Set<Musician> musicianInAlbum = album.getFeaturedMusicians();
                     coopMusician.addAll(Sets.newHashSet(musicianInAlbum));
                 }
 

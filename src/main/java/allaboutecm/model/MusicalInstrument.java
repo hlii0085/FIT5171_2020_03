@@ -1,6 +1,7 @@
 package allaboutecm.model;
 
 import jdk.nashorn.internal.objects.annotations.Property;
+import org.neo4j.ogm.annotation.NodeEntity;
 
 import java.util.Objects;
 

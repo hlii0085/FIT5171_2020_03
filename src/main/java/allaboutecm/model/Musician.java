@@ -3,6 +3,9 @@ package allaboutecm.model;
 import allaboutecm.dataaccess.neo4j.URLConverter;
 import com.google.common.collect.Sets;
 import jdk.nashorn.internal.objects.annotations.Property;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -55,7 +58,7 @@ public class Musician extends Entity {
                 }
             }
         }
-        notNull(albums);
+
         this.name = name;
         this.musicianUrl = null;
         this.biography = null;
@@ -101,13 +104,6 @@ public class Musician extends Entity {
 
     public void setAlbums(Set<Album> albums) {
         notNull(albums);
-        for (Album album : albums){
-            for (Album alb : albums){
-                if (album.equals(alb)){
-                    throw new IllegalArgumentException("There are same");
-                }
-            }
-        }
         this.albums = albums;
     }
 
