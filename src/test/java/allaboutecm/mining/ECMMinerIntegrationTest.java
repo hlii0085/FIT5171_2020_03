@@ -292,8 +292,8 @@ class ECMMinerIntegrationTest {
         Musician musician = new Musician("Keith Jarrett");
         musician.setAlbums(Sets.newHashSet(album));
 
-        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
-
+        dao.createOrUpdate(musician);
+        
         List<Album> albums = ecmMiner.mostSimilarAlbums(-1,album);
         assertEquals(0,albums.size(),"the k should bigger than 0");
 
