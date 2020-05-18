@@ -293,7 +293,7 @@ class ECMMinerIntegrationTest {
         musician.setAlbums(Sets.newHashSet(album));
 
         dao.createOrUpdate(musician);
-        
+
         List<Album> albums = ecmMiner.mostSimilarAlbums(-1,album);
         assertEquals(0,albums.size(),"the k should bigger than 0");
 

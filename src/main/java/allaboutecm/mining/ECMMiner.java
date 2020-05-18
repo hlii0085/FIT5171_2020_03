@@ -257,4 +257,34 @@ public class ECMMiner {
             return result;
         }
     }
+
+    public List<Album> bestSellingAlbums(int k) {
+        if (k <= 0) {
+            return Lists.newArrayList();
+        } else {
+            Collection<Album> albums = dao.loadAll(Album.class);
+            ListMultimap<Integer, Album> salesMap = MultimapBuilder.treeKeys().arrayListValues().build();
+            for (Album album : albums) {
+                salesMap.put(album.getSales(), album);
+            }
+
+            List<Album> result = Lists.newArrayList();
+            List<Integer> sortedKeys = Lists.newArrayList(salesMap.keySet());
+            sortedKeys.sort(Ordering.natural().reverse());
+            for (Integer count : sortedKeys) {
+                List<Album> list = salesMap.get(count);
+
+                if (result.size() + list.size() >= k) {
+                    int newAddition = k - result.size();
+                    for (int i = 0; i < newAddition; i++) {
+                        result.add(list.get(i));
+                    }
+                } else {
+                    result.addAll(list);
+                }
+            }
+
+            return result;
+        }
+    }
 }
