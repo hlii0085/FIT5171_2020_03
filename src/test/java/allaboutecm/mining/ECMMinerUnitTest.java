@@ -2,10 +2,7 @@ package allaboutecm.mining;
 
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.dataaccess.neo4j.Neo4jDAO;
-import allaboutecm.model.Album;
-import allaboutecm.model.MusicalInstrument;
-import allaboutecm.model.Musician;
-import allaboutecm.model.MusicianInstrument;
+import allaboutecm.model.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.Year;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -51,7 +49,7 @@ class ECMMinerUnitTest {
     }
 
 
-    @DisplayName("when K invalid return empty list")
+    @DisplayName("when K for mostProlificMusicians is invalid return empty list")
     @ParameterizedTest
     @ValueSource(ints = {-5, -1, 0})
     public void testMostProlificMusiciansReturnEmptyListWhenKInvalid(int arg){
@@ -84,7 +82,7 @@ class ECMMinerUnitTest {
         assertEquals(0,musicians.size(),"The year should before this year");
     }
 
-    @DisplayName("when K larger than musicians")
+    @DisplayName("when K for mostProlificMusicians larger than musicians")
     @ParameterizedTest
     @ValueSource(ints = {2, 100, 1000})
     public void testMostProlificMusiciansKLargerThanMusicians(int arg){
@@ -178,7 +176,7 @@ class ECMMinerUnitTest {
         assertEquals(0,musicians.size(),"the list should be empty if k is invalid");
     }
 
-    @DisplayName("When K larger than musicians")
+    @DisplayName("When K for mostSocialMusicians larger than musicians")
     @ParameterizedTest
     @ValueSource(ints = {2, 100, 1000})
     public void testMostSocialMusiciansKLargerThanMusicians(int arg){
@@ -226,7 +224,7 @@ class ECMMinerUnitTest {
     }
 
     // Test busiest year
-    @DisplayName("When Busiest year is invalid")
+    @DisplayName("When k for busiest year is invalid")
     @Test
     public void testBuiestYear() {
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
@@ -235,15 +233,15 @@ class ECMMinerUnitTest {
 
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
 
-        List<Integer> ys = ecmMiner.busiestYears(0);
-        assertEquals(0, ys.size(), "The album can not be null");
+        List<Integer> by = ecmMiner.busiestYears(-1);
+        assertEquals(0, by.size(), "The k can not be negative");
 
-        ys = ecmMiner.busiestYears(-1);
-        assertEquals(0, ys.size(), "The album can not be nul");
+        by = ecmMiner.busiestYears(0);
+        assertEquals(0, by.size(), "The k can not be 0");
     }
 
     // Test mostSimilarAlbums
-    @DisplayName("When K is invalid")
+    @DisplayName("When K for mostSimilarAlbums is invalid")
     @Test
     public void testMostSimilarAlbumsReturnEmptyListWhenKInvalid(){
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
@@ -275,8 +273,33 @@ class ECMMinerUnitTest {
         assertEquals(0,albums.size(),"The album can not be nul");
     }
 
+    @Test
+    public void mostSimilarAlbumsAlbumsWhenKIsLarger() {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album));
+
+        List<Album> albums = ecmMiner.mostSimilarAlbums(5, album);
+
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album));
+    }
+
+    @Test
+    public void mostSimilarAlbumsAlbumsWhenKIsEqual() {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album));
+
+        List<Album> albums = ecmMiner.mostSimilarAlbums(1, album);
+
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album));
+    }
+
+
     // Test bestSellingAlbums
-    @DisplayName("When k is invalid")
+    @DisplayName("When k for bestSellingAlbums is invalid")
     @Test
     public void testBestSellingAlbums() {
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
@@ -285,22 +308,77 @@ class ECMMinerUnitTest {
 
         List<Album> bs = ecmMiner.bestSellingAlbums(-10);
         assertEquals(0, bs.size(), "The k can not be negative");
+
+        bs = ecmMiner.bestSellingAlbums(0);
+        assertEquals(0, bs.size(), "The k can not be 0");
+    }
+
+    @Test
+    public void bestSellingAlbumsWhenKIsLarger() {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album));
+
+        List<Album> albums = ecmMiner.bestSellingAlbums(5);
+
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album));
+    }
+
+    @Test
+    public void bestSellingAlbumsWhenEqual() {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album));
+
+        List<Album> albums = ecmMiner.bestSellingAlbums(1);
+
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album));
     }
 
     // Test highestRatedAlbums
-    @DisplayName("When k is invalid")
+    @DisplayName("When k for highestRatedAlbums is invalid")
     @Test
     public void testHighestRatedAlbums() {
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
 
         when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album));
 
-        List<Album> bs = ecmMiner.highestRatedAlbums(-10);
-        assertEquals(0, bs.size(), "The k can not be negative");
+        List<Album> hr = ecmMiner.highestRatedAlbums(-10);
+        assertEquals(0, hr.size(), "The k can not be negative");
+
+        hr = ecmMiner.highestRatedAlbums(0);
+        assertEquals(0, hr.size(), "The k can not be 0");
     }
 
+    @Test
+        public void highestRatedAlbumsWhenKIsLarger() {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album));
+
+        List<Album> albums = ecmMiner.highestRatedAlbums(5);
+
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album));
+    }
+
+    @Test
+    public void highestRatedAlbumsWhenEqual() {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album));
+
+        List<Album> albums = ecmMiner.highestRatedAlbums(1);
+
+        assertEquals(1, albums.size());
+        assertTrue(albums.contains(album));
+    }
+
+
     // Test highestRatedMusician
-    @DisplayName("When k is invalid")
+    @DisplayName("When k for highestRatedMusician is invalid")
     @Test
     public void testHighestRatedMusician() {
         Musician musician = new Musician("Keith Jarrett");
@@ -309,7 +387,33 @@ class ECMMinerUnitTest {
 
         List<Musician> mmm = ecmMiner.highestRatedMusician(-10);
         assertEquals(0, mmm.size(), "The k can not be negative");
+
+        mmm = ecmMiner.highestRatedMusician(0);
+        assertEquals(0, mmm.size(), "The k can not be 0");
     }
 
+    @Test
+    public void highestRatedMusicianWhenKIsLarger() {
+        Musician musician = new Musician("Keith Jarrett");
+
+        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
+
+        List<Musician> musicians = ecmMiner.highestRatedMusician(5);
+
+        assertEquals(1, musicians.size());
+        assertTrue(musicians.contains(musician));
+    }
+
+    @Test
+        public void highestRatedMusicianWhenEqual() {
+        Musician musician = new Musician("Keith Jarrett");
+
+        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
+
+        List<Musician> musicians = ecmMiner.highestRatedMusician(1);
+
+        assertEquals(1, musicians.size());
+        assertTrue(musicians.contains(musician));
+    }
 
 }

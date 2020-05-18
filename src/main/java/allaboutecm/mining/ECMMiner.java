@@ -87,7 +87,7 @@ public class ECMMiner {
      * @Param k the number of musicians to be returned.
      */
     public List<Musician> mostTalentedMusicians(int k) {
-        if (k < 0) {
+        if (k <= 0) {
             return Lists.newArrayList();
         } else {
             Collection<MusicianInstrument> musicianInstruments = dao.loadAll(MusicianInstrument.class);
@@ -174,7 +174,6 @@ public class ECMMiner {
             for (Album album : albums) {
                 yearHashMultiMap.put(album.getReleaseYear(), album);
             }
-
             ListMultimap<Integer, Integer> yearNumberHashMultiMap = MultimapBuilder.treeKeys().arrayListValues().build();
             for (Integer year : yearHashMultiMap.keySet()) {
                 yearNumberHashMultiMap.put(yearHashMultiMap.get(year).size(), year);
@@ -184,7 +183,6 @@ public class ECMMiner {
             sortedKeys.sort(Ordering.natural().reverse());
             for (Integer count : sortedKeys) {
                 List<Integer> list = yearNumberHashMultiMap.get(count);
-
                 if (result.size() + list.size() >= k) {
                     int newAddition = k - result.size();
                     for (int i = 0; i < newAddition; i++) {
@@ -209,7 +207,7 @@ public class ECMMiner {
      */
 
     public List<Album> mostSimilarAlbums(int k, Album album) {
-        if (k < 0 || album == null) {
+        if (k <= 0 || album == null) {
             return Lists.newArrayList();
         } else {
             Collection<Album> albums = dao.loadAll(Album.class);
@@ -265,6 +263,7 @@ public class ECMMiner {
             List<Album> result = Lists.newArrayList();
             List<Integer> sortedKeys = Lists.newArrayList(salesMap.keySet());
             sortedKeys.sort(Ordering.natural().reverse());
+
             for (Integer count : sortedKeys) {
                 List<Album> list = salesMap.get(count);
 
@@ -283,7 +282,7 @@ public class ECMMiner {
     }
 
     public List<Album> highestRatedAlbums(int k) {
-        if (k < 0) {
+        if (k <= 0) {
             return Lists.newArrayList();
         }else {
             Collection<Album> albums = dao.loadAll(Album.class);
@@ -299,7 +298,10 @@ public class ECMMiner {
                         j += rating.getScore();
                     }
                 }
-                float average = j / i;
+                float average = 0;
+                if (i != 0) {
+                    average = j / i;
+                }
                 ratedMap.put(average, album);
             }
 
@@ -324,7 +326,7 @@ public class ECMMiner {
     }
 
     public List<Musician> highestRatedMusician(int k) {
-        if (k < 0) {
+        if (k <= 0) {
             return Lists.newArrayList();
         }else {
             Collection<Musician> musicians = dao.loadAll(Musician.class);
@@ -340,7 +342,10 @@ public class ECMMiner {
                         j += rating.getScore();
                     }
                 }
-                float average = j / i;
+                float average = 0;
+                if (i != 0) {
+                    average = j / i;
+                }
                 ratedMap.put(average, musician);
             }
 
@@ -359,7 +364,6 @@ public class ECMMiner {
                     result.addAll(list);
                 }
             }
-
             return result;
         }
     }
