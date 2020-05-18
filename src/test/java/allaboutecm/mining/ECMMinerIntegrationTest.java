@@ -317,4 +317,40 @@ class ECMMinerIntegrationTest {
         assertEquals(0,albums.size(),"The album can not be nul");
     }
 
+    // Test bestSellingAlbums
+    @DisplayName("When k is invalid")
+    @Test
+    public void testBestSellingAlbums() {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+
+        dao.createOrUpdate(album);
+
+        List<Album> bs = ecmMiner.bestSellingAlbums(-10);
+        assertEquals(0, bs.size(), "The k can not be negative");
+    }
+
+    // Test highestRatedAlbums
+    @DisplayName("When k is invalid")
+    @Test
+    public void testHighestRatedAlbums() {
+        Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
+
+        dao.createOrUpdate(album);
+
+        List<Album> bs = ecmMiner.highestRatedAlbums(-10);
+        assertEquals(0, bs.size(), "The k can not be negative");
+    }
+
+    // Test highestRatedMusician
+    @DisplayName("When k is invalid")
+    @Test
+    public void testHighestRatedMusician() {
+        Musician musician = new Musician("Keith Jarrett");
+
+        dao.createOrUpdate(musician);
+
+        List<Musician> mmm = ecmMiner.highestRatedMusician(-10);
+        assertEquals(0, mmm.size(), "The k can not be negative");
+    }
+
 }
