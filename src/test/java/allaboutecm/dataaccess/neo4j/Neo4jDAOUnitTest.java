@@ -87,7 +87,7 @@ class Neo4jDAOUnitTest {
         Musician musician = new Musician("Keith Jarrett");
         musician.setMusicianUrl("https://www.keithjarrett.org/");
 
-
+        dao.createOrUpdate(musician);
         Musician loadedMusician = dao.load(Musician.class, musician.getId());
 
         assertNotNull(loadedMusician.getId());
