@@ -1,6 +1,7 @@
 package allaboutecm.model;
 
 import allaboutecm.dataaccess.neo4j.URLConverter;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import jdk.nashorn.internal.objects.annotations.Property;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -9,6 +10,7 @@ import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -44,6 +46,9 @@ public class Musician extends Entity {
     @Relationship(type="albums")
     private Set<Album> albums;
 
+    @Relationship(type="comments")
+    private List<Comment> comments;
+
 
     public Musician(String name) {
         notNull(name);
@@ -65,6 +70,7 @@ public class Musician extends Entity {
         this.wikipediaUrl = null;
         fanSites = Sets.newLinkedHashSet();
         albums = Sets.newLinkedHashSet();
+        comments = Lists.newArrayList();
     }
 
     public void setName(String name) {
@@ -149,5 +155,16 @@ public class Musician extends Entity {
     public void setWikipediaUrl(URL WikipediaUrl) {
         notNull(WikipediaUrl);
         this.musicianUrl = WikipediaUrl;
+    }
+
+    public List<Comment> getComment() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        notNull(comments);
+        if (comments.size() == 0) {
+            throw new IllegalArgumentException("Comment list contains no comment");
+        }
     }
 }

@@ -52,17 +52,6 @@ class CommentTest {
     }
 
     @Test
-    @DisplayName("Element in rating list should between 0-100")
-    public void elementInRatinglistOutOfBoundary() {
-        List<Integer> ratings = new ArrayList<>();
-        ratings.add(-1);
-        ratings.add(101);
-        ratings.add(3000);
-        ratings.add(-200);
-        assertThrows(IllegalArgumentException.class, () -> comment.setRatings(ratings));
-    }
-
-    @Test
     @DisplayName("Ratings cannot be null")
     public void ratingCannotBeNull() {
         assertThrows(NullPointerException.class, () -> comment.setRatings(null));

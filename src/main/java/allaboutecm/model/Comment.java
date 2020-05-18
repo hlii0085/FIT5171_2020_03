@@ -29,7 +29,7 @@ public class Comment extends Entity {
     private List<String> reviews;
 
     @Relationship(type="ratings")
-    private List<Integer> ratings;
+    private List<Rating> ratings;
 
     public Comment () {
         this.webURL = null;
@@ -69,23 +69,17 @@ public class Comment extends Entity {
         this.reviews = reviews;
     }
 
-    public List<Integer> getRatings() {
+    public List<Rating> getRatings() {
         return ratings;
     }
 
-    public void setRatings(List<Integer> ratings) {
+    public void setRatings(List<Rating> ratings) {
         notNull(ratings);
 
         if (ratings.size() == 0) {
             throw new IllegalArgumentException("Rating list contains no review");
         }
 
-        if (ratings.size() != 0) {
-            for (Integer rating : ratings) {
-                if (rating < 0 || rating > 100) {
-                    throw new IllegalArgumentException("Rating should between 0-100");
-                }
-        }}
         this.ratings = ratings;
     }
 }

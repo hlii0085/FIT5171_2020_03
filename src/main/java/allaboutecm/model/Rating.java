@@ -18,7 +18,7 @@ import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
 @NodeEntity
-public class Ratings {
+public class Rating {
 
     @Property(name="score")
     private int score;
@@ -26,7 +26,7 @@ public class Ratings {
     @Property(name="source")
     private String source;
 
-    public Ratings (int score, String source) {
+    public Rating (int score, String source) {
         notNull(score);
         notNull(source);
         notBlank(source);

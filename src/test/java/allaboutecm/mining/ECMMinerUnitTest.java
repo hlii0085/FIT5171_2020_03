@@ -38,9 +38,9 @@ class ECMMinerUnitTest {
 
     // Test mostProlificMusicians
     @Test
-    public void shouldReturnTheMusicianWhenThereIsOnlyOne() {
+    public void shouldReturnTheMusicianWhenKIsLarger() {
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
-        Musician musician = new Musician("Keith Jarrett");
+        Musician musician = new Musician("Jay Chou");
         musician.setAlbums(Sets.newHashSet(album));
         when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musician));
 

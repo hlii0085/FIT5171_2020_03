@@ -1,5 +1,6 @@
 package allaboutecm.model;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.checkerframework.common.value.qual.StaticallyExecutable;
 import org.junit.jupiter.api.BeforeEach;
@@ -207,5 +208,18 @@ class MusicianTest {
     @DisplayName("Biography cannot be empty or blank")
     public void biographyCannotBeEmptyOrBlank(String arg) {
         assertThrows(IllegalArgumentException.class, () -> musician.setBiography(arg));
+    }
+
+    @Test
+    @DisplayName("Comments cannot be null")
+    public void commentsCannotBeNull() {
+        assertThrows(NullPointerException.class, () -> musician.setComments(null));
+    }
+
+    @Test
+    @DisplayName("There is at least one comment")
+    public void commentAtLeastOne() {
+        List<Comment> comment = Lists.newArrayList();
+        assertThrows(IllegalArgumentException.class, () -> musician.setComments(comment));
     }
 }

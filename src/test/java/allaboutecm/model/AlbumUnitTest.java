@@ -177,4 +177,12 @@ class AlbumUnitTest {
 
         assertEquals(album, album1);
     }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-2000, -1})
+    @DisplayName("The number of sales should be a positive number")
+    public void salesPositive(int sales) {
+        assertThrows(IllegalArgumentException.class, () -> album.setSales(sales));
+    }
+
 }

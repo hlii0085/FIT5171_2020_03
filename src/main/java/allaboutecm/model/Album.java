@@ -63,6 +63,9 @@ public class Album extends Entity {
     @Relationship(type="group")
     private Set<Group> group;
 
+    @Property(name="sales")
+    private int sales;
+
     public Album(int releaseYear, String recordNumber, String albumName) {
         notNull(recordNumber);
         notNull(albumName);
@@ -90,6 +93,7 @@ public class Album extends Entity {
         tracks = Lists.newArrayList();
         comments = Lists.newArrayList();
         group = Sets.newHashSet();
+        sales = 0;
     }
 
     public String getReleaseFormat() {
@@ -245,6 +249,19 @@ public class Album extends Entity {
         notBlank(albumName);
 
         this.albumName = albumName;
+    }
+
+    public int getSales() {
+        return sales;
+    }
+
+    public void setSales(int sales) {
+        notNull(sales);
+        if (sales >= 0) {
+            this.sales = sales;
+        }else {
+            throw new IllegalArgumentException("The number of sales should be a positive number");
+        }
     }
 
     @Override
