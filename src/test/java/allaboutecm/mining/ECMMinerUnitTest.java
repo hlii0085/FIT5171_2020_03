@@ -51,7 +51,7 @@ class ECMMinerUnitTest {
 
     @DisplayName("when K for mostProlificMusicians is invalid return empty list")
     @ParameterizedTest
-    @ValueSource(ints = {-5, -1, 0})
+    @ValueSource(ints = {-1, -2, 0})
     public void testMostProlificMusiciansReturnEmptyListWhenKInvalid(int arg){
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
         Musician musician = new Musician("Keith Jarrett");
@@ -82,10 +82,10 @@ class ECMMinerUnitTest {
         assertEquals(0,musicians.size(),"The year should before this year");
     }
 
-    @DisplayName("when K for mostProlificMusicians larger than musicians")
+    @DisplayName("when K for mostProlificMusicians larger than musicians return musicians")
     @ParameterizedTest
     @ValueSource(ints = {2, 100, 1000})
-    public void testMostProlificMusiciansKLargerThanMusicians(int arg){
+    public void testMostProlificMusiciansWhenKLargerThanMusicians(int arg){
         Album album = new Album(1975, "ECM 1064/65", "The Köln Concert");
         Musician musician = new Musician("Keith Jarrett");
         musician.setAlbums(Sets.newHashSet(album));
@@ -97,9 +97,9 @@ class ECMMinerUnitTest {
         assertTrue(musicians.contains(musician));
     }
 
-    //when K is greater than musicians return musicians we have
+    @DisplayName("when K for mostProlificMusicians smaller than equal number musicians return k")
     @Test
-    public void testMostProlificMusiciansKLargerAndEqualsMusiciansReturnMusiciansAmount(){
+    public void testMostProlificMusiciansWhenKSmallerThanEqualsMusicians(){
         HashSet<Album> musicianAAlbums = Sets.newHashSet(new Album(1975, "ECM 1064/65", "The Köln Concert"),
                 new Album(1985, "ECM 1065/66", "The AAA Concert"));
         Musician musicianA = new Musician("Keith Jarrett");
@@ -120,7 +120,7 @@ class ECMMinerUnitTest {
     // Test MostTalentMusicians
     @ParameterizedTest
     @ValueSource(ints = {-1, -2, 0})
-    public void testMostTalentMusicians(int arg){
+    public void testMostTalentMusiciansWhenKInvalid(int arg){
         Musician musicianA = new Musician("Keith Jarrett");
         MusicianInstrument musicianInstrument = new MusicianInstrument(musicianA, Sets.newHashSet(new MusicalInstrument("Piano")));
 
@@ -131,7 +131,7 @@ class ECMMinerUnitTest {
 
 
     @Test
-    public void testReturnKLargerMusicians(){
+    public void testMostTalentMusiciansWhenKLargerThanMusicians(){
         HashSet<MusicianInstrument> musicianInstruments = Sets.newHashSet(
                 new MusicianInstrument(
                         new Musician("Kainan Liang"), Sets.newHashSet(
@@ -144,7 +144,7 @@ class ECMMinerUnitTest {
     }
 
     @Test
-    public void testMostTalentMusicianReturnKLargerThanEqualNumber(){
+    public void testMostTalentMusicianWhenKSmallerThanEqualNumber(){
         HashSet<MusicianInstrument> musicianInstruments = Sets.newHashSet(
                 new MusicianInstrument(
                         new Musician("Kainan Liang"), Sets.newHashSet(

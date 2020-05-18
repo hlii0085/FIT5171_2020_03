@@ -190,13 +190,10 @@ class Neo4jDAOUnitTest {
         dao.createOrUpdate(album);
         dao.createOrUpdate(musician);
 
-        assertNotNull(dao.load(Musician.class, musician.getId()).getId(), "Musician saved");
-        assertNotNull(dao.loadAll(Album.class),"Album saved");
-
         dao.delete(musician);
 
-        assertTrue(dao.loadAll(Musician.class).isEmpty(), "musician should no longer exists");
-        assertFalse(dao.loadAll(Album.class).isEmpty(), "album should no longer exists" );
+        assertTrue(dao.loadAll(Musician.class).isEmpty(), "musician delete");
+        assertFalse(dao.loadAll(Album.class).isEmpty(), "album exists" );
     }
 
     //add delete
@@ -210,8 +207,8 @@ class Neo4jDAOUnitTest {
 
         dao.createOrUpdate(musicianInstrument);
         dao.delete(musician);
-        assertNull(dao.load(Musician.class,musician.getId()),"Musician should be delete");
-        assertNull(dao.load(MusicianInstrument.class,musicianInstrument.getId()),"Musician instrument should be delete");
+        assertNull(dao.load(Musician.class,musician.getId()),"Musician delete");
+        assertNull(dao.load(MusicianInstrument.class,musicianInstrument.getId()),"Musician instrument also delete");
     }
 
 }
