@@ -110,7 +110,7 @@ class ECMMinerUnitTest {
         Musician musicianB = new Musician("Kainan Liang");
         musicianB.setAlbums(musicianBAlbums);
 
-        //when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musicianA,musicianB));
+        when(dao.loadAll(Musician.class)).thenReturn(Sets.newHashSet(musicianA,musicianB));
 
         List<Musician> musicians = ecmMiner.mostProlificMusicians(1,1975,2000 );
         assertEquals(1, musicians.size());
