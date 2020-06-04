@@ -1,9 +1,14 @@
 package allaboutecm.dataaccess;
 
+import allaboutecm.model.Album;
 import allaboutecm.model.Entity;
+import allaboutecm.model.MusicalInstrument;
 import allaboutecm.model.Musician;
+import allaboutecm.model.*;
 
+import java.net.URL;
 import java.util.Collection;
+import java.util.List;
 
 public interface DAO {
     <T extends Entity> T load(Class<T> clazz, Long id);
@@ -15,4 +20,14 @@ public interface DAO {
     <T extends Entity> void delete(T entity);
 
     Musician findMusicianByName(String name);
+
+    List<Album> findAlbumsByYear(int year);
+
+    Musician findMusicianByURL(URL url);
+
+    Album findAlbumByName(String name);
+
+
+    Album findAlbumByRecordNumber(String recordNumber);
+    Album findAlbumByURL(URL albumURL);
 }

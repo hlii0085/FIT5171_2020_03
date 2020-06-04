@@ -11,8 +11,12 @@ import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.cypher.Filters;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.transaction.Transaction;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.net.URL;
 
 import static org.neo4j.ogm.cypher.ComparisonOperator.EQUALS;
 
@@ -120,5 +124,78 @@ public class Neo4jDAO implements DAO {
             existingEntity = collection.iterator().next();
         }
         return (T) existingEntity;
+    }
+
+    @Override
+    public Album findAlbumByName(String name) {
+
+        if (!(name == null && StringUtils.isEmpty(name) ))
+        {
+            Collection <Album> albumList = session.loadAll(Album.class);
+
+            for (Album album  : albumList)
+            {
+
+                if (album.getAlbumName().toLowerCase().equals(name.toLowerCase()))
+                {
+                    return album;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Album> findAlbumsByYear(int year) {
+        Collection<Album> albums = session.loadAll(Album.class);
+        List<Album> matchedAlbums = new ArrayList<Album>();
+
+        if(year > 0) {
+            for (Album a :albums) {
+                if(a.getReleaseYear() == year) {
+                    matchedAlbums.add(a);
+                }
+            }
+        }
+        else {
+            throw new IllegalArgumentException("The given year is invalid");
+        }
+        return matchedAlbums;
+    }
+
+    @Override
+    public Musician findMusicianByURL(URL url) {
+        Filters filters = new Filters();
+        filters.add(new Filter("url", EQUALS, url));
+        Collection<Musician> musicians = session.loadAll(Musician.class, filters);
+        if (musicians.isEmpty()) {
+            return null;
+        } else {
+            return musicians.iterator().next();
+        }
+    }
+
+    @Override
+    public Album findAlbumByRecordNumber(String recordNumber) {
+        Filters filters = new Filters();
+        filters.add(new Filter("recordNumber", EQUALS, recordNumber));
+        Collection<Album> albums = session.loadAll(Album.class, filters);
+        if (albums.isEmpty()) {
+            return null;
+        } else {
+            return albums.iterator().next();
+        }
+    }
+
+    @Override
+    public Album findAlbumByURL(URL albumURL) {
+        Filters filters = new Filters();
+        filters.add(new Filter("albumURL", EQUALS, albumURL));
+        Collection<Album> albums = session.loadAll(Album.class, filters);
+        if (albums.isEmpty()) {
+            return null;
+        } else {
+            return albums.iterator().next();
+        }
     }
 }

@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MusicianTest {
 
@@ -27,6 +29,7 @@ class MusicianTest {
     public void setUp() {
         musician = new Musician("Edison Wang");
     }
+
 
     /**
      * Equivalent class test for name
@@ -46,6 +49,16 @@ class MusicianTest {
     @DisplayName("Musician name cannot be empty or blank")
     public void testNameCannotBeEmptyOrBlank(String arg) {
         assertThrows(IllegalArgumentException.class, () -> musician.setName(arg));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"345", "test123", "$#@$#"})
+    @DisplayName("Musician Name cannot be Numbers or AlphaNumeric or Special Characters")
+    public void MusicianNameCannotBeNumbersOrAlphaNumericOrSpecialChar(String arg) {
+        String pattern = "^[a-z\\s]+$";
+        if (Pattern.matches(pattern, arg)) {
+            throw new IllegalArgumentException(String.format("The string %s does not match the pattern %s", arg, pattern));
+        }
     }
 
     @Test

@@ -5,6 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -24,6 +29,7 @@ class MusicianInstrumentTest {
     public void musicalInstrumentCannotBeNull() {
         assertThrows(NullPointerException.class, () -> musicianInstrument.setMusicalInstrument(null));
     }
+
 
     @Test
     @DisplayName("Musician cannot be null")

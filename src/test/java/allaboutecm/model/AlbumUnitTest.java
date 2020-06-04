@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import javax.sound.midi.Instrument;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
@@ -15,6 +15,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AlbumUnitTest {
     private Album album;
@@ -183,6 +184,136 @@ class AlbumUnitTest {
     @DisplayName("The number of sales should be a positive number")
     public void salesPositive(int sales) {
         assertThrows(IllegalArgumentException.class, () -> album.setSales(sales));
+    }
+
+    @Test
+    @DisplayName("New Release Year is assigned successfully")
+    public void newReleaseYearValueAssignment() {
+        int releaseYear = album.getReleaseYear();
+        album.setReleaseYear(1980);
+        int releaseYear1 = album.getReleaseYear();
+        assertNotEquals(releaseYear,releaseYear1);
+    }
+
+    @Test
+    @DisplayName("New Record Number is assigned successfully")
+    public void newRecordNumberValueAssignment() {
+        String recordNumber = album.getRecordNumber();
+        album.setRecordNumber("ECG 106");
+        String recordNumber1 = album.getRecordNumber();
+        assertNotEquals(recordNumber,recordNumber1);
+    }
+    @Test
+    @DisplayName("New Album Name  is assigned successfully")
+    public void newAlbumNameValueAssignment() {
+        String albumName = album.getAlbumName();
+        album.setAlbumName("Maps 21");
+        String albumName1 = album.getAlbumName();
+        assertNotEquals(albumName,albumName1);
+    }
+    @Test
+    @DisplayName(" Musicians are added to the album assigned successfully")
+    public void addingMusiciansToAlbum() {
+        Set<Musician> musicians = new HashSet<>(); //
+        musicians.add(new Musician("Adam Bryan"));
+        album.setFeaturedMusicians(musicians);
+        assertTrue(album.getFeaturedMusicians().size() ==(1));
+    }
+
+    @Test
+    @DisplayName(" Instruments are added to the album assigned successfully")
+    public void addMusicianInstrument() {
+        Set <MusicianInstrument> set =new HashSet(); //List of items with no duplicates
+        set.add(new MusicianInstrument(
+                new Musician("Adam Bryan"),
+                new  HashSet<MusicalInstrument>(){{ add(new MusicalInstrument("Saxophone")); }}
+        ));
+        album.setInstruments(set);
+        assertTrue(album.getInstruments().size() ==(1));
+    }
+
+    @Test
+    @DisplayName("HashSet should give distinct Instruments")
+    public void noDuplicateMusicianInstrument() {
+        Set<MusicianInstrument> set =new HashSet();
+        set.add(new MusicianInstrument(
+                new Musician("Adam Bryan"),
+                new  HashSet<MusicalInstrument>(){{ add(new MusicalInstrument("Saxophone")); }}
+        ));
+        set.add(new MusicianInstrument(
+                new Musician("Adam Bryan"),
+                new  HashSet<MusicalInstrument>(){{ add(new MusicalInstrument("Saxophone")); }}
+        ));
+        album.setInstruments(set);
+        assertTrue(album.getInstruments().size() ==(1));
+    }
+
+    @Test
+    @DisplayName(" Tracks are added to the album assigned successfully")
+    public void addTracks() {
+        List<Track> list =new ArrayList();
+        Track track = new Track("Red");
+        list.add(track);
+        album.setTracks(list);
+        assertTrue(album.getTracks().size() ==(1));
+    }
+
+    private boolean custom(String s1) {                             // Regular Expression to check whether given string should  have alphabets and Numbers
+        return s1.matches("^[a-zA-Z0-9\\s]+$");
+    }
+    private boolean custom1(String s1) {
+        return s1.matches("[0-9]+");
+    }
+
+    @Test
+    @DisplayName("Record Number should not accept Special characters ")
+    public void recordNumberShouldNotAcceptSpecialCharacters() {
+        album.setRecordNumber("@1rhdhk" );
+        assertEquals(false , custom(album.getRecordNumber()));
+    }
+    @Test
+    @DisplayName("Record Number should  accept  numeric values ")
+    public void recordNumberShouldAcceptNumericValues() {
+        album.setRecordNumber("21" );
+        assertEquals(true , custom(album.getRecordNumber()));
+    }
+    @Test
+    @DisplayName("Record Number should  not accept ONLY alphabets  ")
+    public void recordNumberShouldNotAcceptOnlyAlphabets() {
+        album.setRecordNumber("abc" );
+        assertEquals(false , custom1(album.getRecordNumber()));
+    }
+    @Test
+    @DisplayName("Record Number should  accept Alphanumeric characters ")
+    public void recordNumberShouldAcceptAlphanumeric() {
+        album.setRecordNumber("12fgj" );
+        assertEquals(true , custom(album.getRecordNumber()));
+    }
+
+    public void albumNameShouldNotAcceptSpecialCharacters() {
+        album.setAlbumName("@gjjj" );
+        assertEquals(false , custom(album.getAlbumName()));
+    }
+
+    @Test
+    @DisplayName("Album Name should  accept Alphanumeric ")
+    public void albumNameShouldAcceptAlphanumeric() {
+        album.setAlbumName("BT21" );
+        assertEquals(true , custom(album.getAlbumName()));
+    }
+
+    @Test
+    @DisplayName("Album Name can  accept Numeric Values ")
+    public void albumNameCanAcceptNumericValues() {
+        album.setAlbumName("21" );
+        assertEquals(true , custom(album.getAlbumName()));
+    }
+
+    @Test
+    @DisplayName("Album Name can  accept Alphabets ")
+    public void albumNameCanAcceptAlphabets() {
+        album.setAlbumName("AndBand" );
+        assertEquals(true , custom(album.getAlbumName()));
     }
 
 }

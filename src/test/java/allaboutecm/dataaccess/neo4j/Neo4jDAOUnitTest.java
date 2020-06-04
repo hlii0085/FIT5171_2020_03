@@ -211,4 +211,144 @@ class Neo4jDAOUnitTest {
         assertNull(dao.load(MusicianInstrument.class,musicianInstrument.getId()),"Musician instrument also delete");
     }
 
+    @Test
+    public void successfulCreationAndLoadingOfAlbum() {
+
+        assertEquals(0, dao.loadAll(Album.class).size());
+
+
+        Album album = new Album(2020,"112","MOTS8");
+
+        dao.createOrUpdate(album);
+        Album loadedAlbum = dao.load(Album.class, album.getId());
+
+        assertNotNull(loadedAlbum.getId());
+        assertEquals(album, loadedAlbum);
+        assertEquals(1, dao.loadAll(Album.class).size());
+
+    }
+
+    @Test
+    public void successfullyGetAlbumByYear() {
+        assertEquals(0, dao.loadAll(Album.class).size());
+        Album album = new Album(2020,"112","MOTS8");
+
+        dao.createOrUpdate(album);
+        Collection<Album> albumByYear = dao.findAlbumsByYear(2020);
+
+        assertEquals(1,albumByYear.size());
+    }
+
+    @Test
+    public void whenMatchedAlbumDoesntExistShouldReturnEmptyList() {
+        assertEquals(0, dao.loadAll(Album.class).size());
+        Album album = new Album(2020,"112","MOTS8");
+
+        dao.createOrUpdate(album);
+        Collection<Album> albumByYear = dao.findAlbumsByYear(2021);
+
+        assertEquals(0,albumByYear.size());
+    }
+
+    @Test
+    public void whenYearIsNegativeOrZeroShouldThrowException() {
+        //If the given year is zero or lesser than Zero. from the code we are throwing illegal argument exception as it is invalid year
+        assertThrows(IllegalArgumentException.class, () -> dao.findAlbumsByYear(-2020) );
+    }
+
+    @Test
+    public void successfulCreationOfAlbumInDBAndFindAlbumByName() {
+        assertEquals(0, dao.loadAll(Album.class).size());
+        Album album = new Album(2020,"112","MOTS8");
+        dao.createOrUpdate(album);
+        Album foundAlbum = dao.findAlbumByName("MOTS8");
+        assertEquals(album, foundAlbum);
+    }
+
+    @Test
+    public void successfulCreationOfAlbumInDBAndFindAlbumByNameIrrespectiveOfCase() {
+        assertEquals(0, dao.loadAll(Album.class).size());
+        Album album = new Album(2020,"112","RASH");
+        dao.createOrUpdate(album);
+        Album foundAlbum = dao.findAlbumByName("rash");
+        assertEquals(album, foundAlbum);
+    }
+
+    @Test
+    public void successfulCreationOfAlbumInDBAndFindAlbumByNameForEmptyValues() {
+        assertEquals(0, dao.loadAll(Album.class).size());
+        Album album = new Album(2020,"112","MOTS8");
+        dao.createOrUpdate(album);
+        Album foundAlbum = dao.findAlbumByName("");
+        assertNull(foundAlbum);
+    }
+
+    @Test
+    public void successfulCreationOfAlbumInDBAndFindAlbumByNameForNullValues() {
+        assertEquals(0, dao.loadAll(Album.class).size());
+        Album album = new Album(2020, "112", "MOTS8");
+        dao.createOrUpdate(album);
+        Album foundAlbum = dao.findAlbumByName(null);
+        assertNull(foundAlbum);
+    }
+
+    // To add or update album url
+    @Test
+    public void  createOrUpdateAlbumUrl() throws MalformedURLException{
+        Album album = new Album(2020,"112","MOTS8");
+        album.setAlbumURL(new URL("https://www.keithjarrett.org/"));
+        dao.createOrUpdate(album);
+        Album getAlbum = dao.findAlbumByURL(new URL("https://www.keithjarrett.org/"));
+        assertEquals(album,getAlbum);
+    }
+
+    @Test
+    public void  createOrUpdateMusicianByName() throws MalformedURLException{
+        Musician musician = new Musician("becky li");
+        musician.setMusicianUrl("https://www.boxigo.in/");
+        dao.createOrUpdate(musician);
+        Musician getMusician = dao.findMusicianByName("becky li");
+        assertEquals(musician,getMusician);
+    }
+
+    @Test
+    public void  createOrUpdateMusicianByAlbum() throws MalformedURLException{
+        Musician musician = new Musician("becky li");
+        musician.setMusicianUrl("https://www.becky.org/");
+
+        Album album = new Album(1992, "t 101", "The becky");
+        musician.setAlbums(Sets.newHashSet(album));
+
+        dao.createOrUpdate(album);
+        dao.createOrUpdate(musician);
+
+        Album albumByRecordNumber = dao.findAlbumByRecordNumber("The becky");
+        Collection<Musician> musicians1 = dao.loadAll(Musician.class);
+        assertEquals(1, musicians1.size());
+        Musician loadedMusician = musicians1.iterator().next();
+        assertEquals(musician.getAlbums(), loadedMusician.getAlbums());
+        if (musician.getAlbums() == loadedMusician.getAlbums()) {
+            assertEquals(musician.getName(), loadedMusician.getName());
+        }
+    }
+
+    @Test
+    public void createOrUpdateMusicianByRecordNumber() throws MalformedURLException {
+        Musician musician = new Musician("becky li");
+        musician.setMusicianUrl("https://www.becky.org/");
+
+        Album album = new Album(1992, "t 101", "The becky");
+        musician.setAlbums(Sets.newHashSet(album));
+
+        dao.createOrUpdate(album);
+        dao.createOrUpdate(musician);
+
+        Album albumByRecordNumber = dao.findAlbumByRecordNumber("t 101");
+        System.out.println(albumByRecordNumber.getRecordNumber());
+        assertEquals(album,albumByRecordNumber);
+        System.out.println(musician.getAlbums());
+        Collection<Album> albumtest = musician.getAlbums();
+        for (Album alb : albumtest)
+            assertEquals(alb.getRecordNumber(),albumByRecordNumber.getRecordNumber());
+    }
 }

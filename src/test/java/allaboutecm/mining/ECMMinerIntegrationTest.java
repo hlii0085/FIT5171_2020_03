@@ -284,6 +284,26 @@ class ECMMinerIntegrationTest {
         assertEquals(0, by.size(), "The k can not be 0");
     }
 
+    @Test
+    @DisplayName("Check if we are getting multiple years for busiest")
+    public void checkForMultipleBusiestYear()
+    {
+        Album album = new Album(1970,"ECM 1000/63","Beatles");
+        Album album1 = new Album(1971,"ECM 1071/64","Thousand Suns");
+        Album album2 = new Album(1980,"ECM 1064/65","The Köln Concert");
+        Album album3 = new Album(1980,"ECM 1064/65","The Köln Concert");
+        Album album4 = new Album(1980,"ECM 1064/65","The Köln Concert");
+
+        dao.createOrUpdate(album);
+        dao.createOrUpdate(album1);
+        dao.createOrUpdate(album2);
+        dao.createOrUpdate(album3);
+        dao.createOrUpdate(album4);
+
+        List<Integer> albums = ecmMiner.busiestYears(5);
+        assertEquals(3,albums.size());
+    }
+
     // Test mostSimilarAlbums
     @DisplayName("When K for mostSimilarAlbums is invalid")
     @Test
@@ -455,4 +475,5 @@ class ECMMinerIntegrationTest {
         assertEquals(1, musicians.size());
         assertTrue(musicians.contains(musician));
     }
+
 }

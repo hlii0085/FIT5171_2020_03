@@ -144,7 +144,7 @@ public class Musician extends Entity {
 
     public void setMusicianUrl(String musicianUrl) throws MalformedURLException {
         notNull(musicianUrl);
-        URL url = new URL(musicianUrl);
+        URL url = new URL(musicianUrl) ;
         this.musicianUrl = url;
     }
 

@@ -48,7 +48,6 @@ class ECMMinerUnitTest {
         assertTrue(musicians.contains(musician));
     }
 
-
     @DisplayName("when K for mostProlificMusicians is invalid return empty list")
     @ParameterizedTest
     @ValueSource(ints = {-1, -2, 0})
@@ -238,6 +237,21 @@ class ECMMinerUnitTest {
 
         by = ecmMiner.busiestYears(0);
         assertEquals(0, by.size(), "The k can not be 0");
+    }
+
+    @Test
+    @DisplayName("Check if we are getting multiple years for busiest")
+    public void checkForMultipleBusiestYear()
+    {
+        Album album = new Album(1970,"ECM 1000/63","Beatles");
+        Album album1 = new Album(1971,"ECM 1071/64","Thousand Suns");
+        Album album2 = new Album(1980,"ECM 1064/65","The Köln Concert");
+        Album album3 = new Album(1980,"ECM 1064/65","The Köln Concert");
+        Album album4 = new Album(1980,"ECM 1064/65","The Köln Concert");
+
+        when(dao.loadAll(Album.class)).thenReturn(Sets.newHashSet(album,album1,album2,album3,album4));
+        List<Integer> albums = ecmMiner.busiestYears(3);
+        assertEquals(3,albums.size());
     }
 
     // Test mostSimilarAlbums

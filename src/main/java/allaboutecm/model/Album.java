@@ -213,11 +213,13 @@ public class Album extends Entity {
         }
 
         if (tracks.size() != 0) {
-            for (Track track : tracks) {
-                notNull(track);
+            for (int i = 0; i < tracks.size(); i++) {
+                notNull(tracks.get(i));
+                Track track1 = tracks.get(i);
+                for (int j = i + 1; j < tracks.size(); j++) {
+                    notNull(tracks.get(j));
 
-                for (Track tra : tracks) {
-                    if (track.equals(tra)) {
+                    if (track1.getTrackName().equals(tracks.get(j).getTrackName())) {
                         throw new IllegalArgumentException("Two tracks in the same album having the same name is not permitted");
                     }
                 }
