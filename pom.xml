@@ -30,6 +30,34 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.9.0</version>
             </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.5.2</version>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>0.9</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <targetClasses>
+                        <param>allaboutecm.model.*</param>
+                        <param>allaboutecm.mining.*</param>
+                    </targetClasses>
+                    <excludedMethods>
+                        <excludedMethods>hashCode</excludedMethods>
+                        <excludedMethods>equals</excludedMethods>
+                        <excludedMethods>allaboutecm.mining.*.get*</excludedMethods>
+                    </excludedMethods>
+                    <outputFormats>
+                        <outputFormat>XML</outputFormat>
+                        <outputFormat>HTML</outputFormat>
+                    </outputFormats>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
