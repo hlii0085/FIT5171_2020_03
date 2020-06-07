@@ -59,7 +59,7 @@ public class Group extends Entity {
     public void setAlbums(Set<Album> albums) {
         notNull(albums);
 
-        if (albums.size() == 0) {
+        if (albums.isEmpty()) {
             throw new IllegalArgumentException("Album list at least has one album");
         }
 

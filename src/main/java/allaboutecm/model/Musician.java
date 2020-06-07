@@ -119,7 +119,7 @@ public class Musician extends Entity {
 
     public void setFanSites(Set<URL> fanSites) {
         notNull(fanSites);
-        if (fanSites.size() == 0) {
+        if (fanSites.isEmpty()) {
             throw new IllegalArgumentException("Fan site list has no element");
         }
         this.fanSites = fanSites;
@@ -163,7 +163,7 @@ public class Musician extends Entity {
 
     public void setComments(List<Comment> comments) {
         notNull(comments);
-        if (comments.size() == 0) {
+        if (comments.isEmpty()) {
             throw new IllegalArgumentException("Comment list contains no comment");
         }
     }

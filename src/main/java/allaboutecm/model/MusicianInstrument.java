@@ -3,7 +3,6 @@ package allaboutecm.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-
 import java.util.Objects;
 import java.util.Set;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -52,7 +51,7 @@ public class MusicianInstrument extends Entity {
     public void setMusicalInstrument(Set<MusicalInstrument> musicalInstrument) {
         notNull(musicalInstrument);
 
-        if (musicalInstrument.size() == 0) {
+        if (musicalInstrument.isEmpty()) {
             throw new IllegalArgumentException("MusicalInstrument list contains no value");
         }
         this.musicalInstrument = musicalInstrument;

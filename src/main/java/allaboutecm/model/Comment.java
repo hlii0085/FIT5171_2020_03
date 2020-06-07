@@ -11,7 +11,7 @@ import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.net.URL;
 import java.util.List;
-
+import java.lang.*;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -55,11 +55,11 @@ public class Comment extends Entity {
             }
         }
 
-        if (reviews.size() == 0) {
+        if (reviews.isEmpty()) {
             throw new IllegalArgumentException("Review list contains no review");
         }
 
-        if (reviews.size() != 0) {
+        if (!reviews.isEmpty()) {
             for (String review : reviews) {
                 notBlank(review); }
         }
@@ -73,7 +73,7 @@ public class Comment extends Entity {
     public void setRatings(List<Rating> ratings) {
         notNull(ratings);
 
-        if (ratings.size() == 0) {
+        if (ratings.isEmpty()) {
             throw new IllegalArgumentException("Rating list contains no review");
         }
 
