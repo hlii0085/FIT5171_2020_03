@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>URLConverter.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package allaboutecm.dataaccess.neo4j;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.neo4j.ogm.typeconversion.AttributeConverter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.net.MalformedURLException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.net.URL;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class URLConverter implements AttributeConverter&#60;URL, String&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toGraphProperty(URL value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_11'/>
+11
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_11'>1</a>
+<span>
+1. toGraphProperty : negated conditional &rarr; TIMED_OUT<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (null == value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_12'/>
+12
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_12'>1</a>
+<span>
+1. toGraphProperty : replaced return value with &#34;&#34; for allaboutecm/dataaccess/neo4j/URLConverter::toGraphProperty &rarr; TIMED_OUT<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>            return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_14'/>
+14
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_14'>1</a>
+<span>
+1. toGraphProperty : replaced return value with &#34;&#34; for allaboutecm/dataaccess/neo4j/URLConverter::toGraphProperty &rarr; TIMED_OUT<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        return value.toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public URL toEntityAttribute(String value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_19'/>
+19
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_19'>1</a>
+<span>
+1. toEntityAttribute : negated conditional &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (null == value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_24'/>
+24
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_24'>1</a>
+<span>
+1. toEntityAttribute : replaced return value with null for allaboutecm/dataaccess/neo4j/URLConverter::toEntityAttribute &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return new URL(value);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (MalformedURLException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;Cannot convert string to URL:&#34; + value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@657dbc82_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@657dbc82_11'>11</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_11'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toGraphProperty<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@657dbc82_12'>12</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_12'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toGraphProperty<br/><b>Killed by : </b>none</span></span> replaced return value with &#34;&#34; for allaboutecm/dataaccess/neo4j/URLConverter::toGraphProperty &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@657dbc82_14'>14</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_14'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toGraphProperty<br/><b>Killed by : </b>none</span></span> replaced return value with &#34;&#34; for allaboutecm/dataaccess/neo4j/URLConverter::toGraphProperty &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@657dbc82_19'>19</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_19'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toEntityAttribute<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@657dbc82_24'>24</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@657dbc82_24'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toEntityAttribute<br/><b>Killed by : </b>none</span></span> replaced return value with null for allaboutecm/dataaccess/neo4j/URLConverter::toEntityAttribute &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>allaboutecm.mining.ECMMinerIntegrationTest.mostSimilarAlbumsAlbumsWhenKIsLarger() (265 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.when start year and end year invalid (277 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.highestRatedMusicianWhenEqual() (233 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.mostSimilarAlbumsAlbumsWhenKIsEqual() (267 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.bestSellingAlbumsWhenEqual() (286 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.shouldReturnTheMusicianWhenKIsLarger() (304 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.highestRatedMusicianWhenKIsLarger() (513 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.bestSellingAlbumsWhenKIsLarger() (281 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.createOrUpdateMusicianByAlbum() (30755 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.whenMatchedAlbumDoesntExistShouldReturnEmptyList() (442 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.testMostProlificMusiciansKLargerAndEqualsMusiciansReturnMusiciansAmount() (287 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.Test delete musician will not delete album (1656 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.createOrUpdateMusicianByRecordNumber() (989 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.testMostTalentMusicians(int) (217 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.When Album is Null (357 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.testMostSocialMusicians(int) (385 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.successfulCreationOfAlbumInDBAndFindAlbumByNameIrrespectiveOfCase() (414 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.highestRatedAlbumsWhenKIsLarger() (328 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.Test delete musician also delete the musician instrument (13310 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.When k for busiest year is invalid (320 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.When k for highestRatedMusician is invalid (376 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.highestRatedAlbumsWhenEqual() (579 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.when K for mostProlificMusicians larger than musicians (380 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.When k for bestSellingAlbums is invalid (351 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.when K for mostProlificMusicians invalid return empty list (309 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.musicianInformationCanBeUpdated() (499 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.createThreeMusiciansSimultaneously() (440 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.When K for mostSocialMusicians larger than musicians (449 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.Test whether can find musician by name (796 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.mostSocialMusicianWithCommonK() (362 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.successfulCreationAndLoadingOfAlbum() (454 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.Check if we are getting multiple years for busiest (423 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.successfulCreationOfAlbumInDBAndFindAlbumByNameForNullValues() (374 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.When K for mostSimilarAlbums is invalid (382 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.successfullyGetAlbumByYear() (468 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.createOrUpdateAlbumUrl() (628 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.testReturnKLargerMusicians() (420 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.successfulCreationOfAlbumInDBAndFindAlbumByNameForEmptyValues() (381 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.successfulCreationOfMusicianAndAlbum() (486 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.successfulCreationAndLoadingOfMusician() (337 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.When k for highestRatedAlbums is invalid (339 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.sameMusicianCannotBeSavedTwice() (868 ms)</li><li>allaboutecm.mining.ECMMinerIntegrationTest.testMostTalentMusicianReturnKLargerThanEqualNumber() (317 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.successfulCreationOfAlbumInDBAndFindAlbumByName() (495 ms)</li><li>allaboutecm.dataaccess.neo4j.Neo4jDAOUnitTest.createOrUpdateMusicianByName() (844 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.5.2
+
+</body>
+</html>

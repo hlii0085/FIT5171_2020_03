@@ -46,6 +46,7 @@
                     <targetClasses>
                         <param>allaboutecm.model.*</param>
                         <param>allaboutecm.mining.*</param>
+                        <param>allaboutecm.dataaccess.neo4j.*</param>
                     </targetClasses>
                     <excludedMethods>
                         <excludedMethods>hashCode</excludedMethods>

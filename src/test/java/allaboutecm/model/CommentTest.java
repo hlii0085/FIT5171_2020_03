@@ -3,6 +3,8 @@ package allaboutecm.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,20 @@ class CommentTest {
         review.add("  ");
         review.add("    \t");
         assertThrows(IllegalArgumentException.class, () -> comment.setReview(review));
+    }
+
+    @Test
+    @DisplayName("Review list cannot be empty")
+    public void reviewListCannotBeEmpty() {
+        List<String> review = new ArrayList<>();
+        assertThrows(IllegalArgumentException.class, () -> comment.setReview(review));
+    }
+
+    @Test
+    @DisplayName("Rating list cannot be empty")
+    public void ratingListCannotBeEmpty() {
+        List<Rating> rating = new ArrayList<>();
+        assertThrows(IllegalArgumentException.class, () -> comment.setRatings(rating));
     }
 
     @Test
