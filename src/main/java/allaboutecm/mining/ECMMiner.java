@@ -289,8 +289,8 @@ public class ECMMiner {
             ListMultimap<Float, Album> ratedMap = MultimapBuilder.treeKeys().arrayListValues().build();
             for (Album album : albums) {
                 List<Comment> comments = album.getComment();
-                int i = 0;
-                int j = 0;
+                float i = 0;
+                float j = 0;
                 for (Comment comment : comments) {
                     List<Rating> ratings = comment.getRatings();
                     i += ratings.size();
@@ -333,8 +333,8 @@ public class ECMMiner {
             ListMultimap<Float, Musician> ratedMap = MultimapBuilder.treeKeys().arrayListValues().build();
             for (Musician musician : musicians) {
                 List<Comment> comments = musician.getComment();
-                int i = 0;
-                int j = 0;
+                float i = 0;
+                float j = 0;
                 for (Comment comment : comments) {
                     List<Rating> ratings = comment.getRatings();
                     i += ratings.size();

@@ -10,7 +10,6 @@ import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.net.URL;
 import java.util.List;
-import java.lang.*;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
