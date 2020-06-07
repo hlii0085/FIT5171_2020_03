@@ -2,9 +2,7 @@ package allaboutecm.dataaccess;
 
 import allaboutecm.model.Album;
 import allaboutecm.model.Entity;
-import allaboutecm.model.MusicalInstrument;
 import allaboutecm.model.Musician;
-import allaboutecm.model.*;
 
 import java.net.URL;
 import java.util.Collection;

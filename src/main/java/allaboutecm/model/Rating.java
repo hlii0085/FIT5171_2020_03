@@ -25,7 +25,7 @@ public class Rating {
             this.score = score;
         }
 
-        this.score = score;
+
         this.source = source;
     }
 
