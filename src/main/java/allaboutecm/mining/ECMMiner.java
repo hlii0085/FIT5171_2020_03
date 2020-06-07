@@ -1,11 +1,9 @@
 package allaboutecm.mining;
-
 import allaboutecm.dataaccess.DAO;
 import allaboutecm.model.*;
 import com.google.common.collect.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.Year;
 import java.util.*;
 

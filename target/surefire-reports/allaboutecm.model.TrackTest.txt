@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: allaboutecm.model.TrackTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.931 s - in allaboutecm.model.TrackTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 s - in allaboutecm.model.TrackTest

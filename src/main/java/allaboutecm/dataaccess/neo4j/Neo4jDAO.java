@@ -71,7 +71,6 @@ public class Neo4jDAO implements DAO {
         if (null == existingEntity) {
             throw new IllegalArgumentException("The entity not exist");
         } else if (clazz.equals(Musician.class)) {
-            //Musician musician = (Musician) entity;
             Collection<MusicianInstrument> musicianInstruments = this.loadAll(MusicianInstrument.class);
             for (MusicianInstrument musicianInstrument : musicianInstruments) {
                 session.delete(musicianInstrument);
