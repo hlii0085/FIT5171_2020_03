@@ -3,7 +3,6 @@ package allaboutecm.model;
 
 import allaboutecm.dataaccess.neo4j.URLConverter;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import jdk.nashorn.internal.objects.annotations.Property;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;

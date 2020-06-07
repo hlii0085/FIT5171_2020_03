@@ -37,18 +37,6 @@ public class Concert {
     private String country;
 
     public Concert() {
-        //notNull(year);
-        //notNull(month);
-        //notNull(day);
-        //notNull(artists);
-        //notNull(events);
-        //notNull(city);
-        //notNull(country);
-
-        //notBlank(day);
-        //notBlank(month);
-        //notBlank(city);
-        //notBlank(country);
 
         this.year = 0;
         this.month = "";
@@ -145,7 +133,7 @@ public class Concert {
     public void setArtists(Set<Musician> artists) {
         notNull(artists);
 
-        if (artists.size() == 0) {
+        if (artists.isEmpty()) {
             throw new IllegalArgumentException("Artists list contains no instrument");
         }
 

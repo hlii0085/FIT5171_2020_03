@@ -78,7 +78,6 @@ public class Album extends Entity {
         }else {
             throw new IllegalArgumentException();
         }
-        this.releaseYear = releaseYear;
         this.recordNumber = recordNumber;
         this.albumName = albumName;
         this.releaseFormat = null;
@@ -147,7 +146,7 @@ public class Album extends Entity {
     public void setFeaturedMusicians(Set<Musician> featuredMusicians) {
         notNull(featuredMusicians);
 
-        if (featuredMusicians.size() == 0) {
+        if (featuredMusicians.isEmpty()) {
             throw new IllegalArgumentException("Featured artist list contains no artist");
         }
 
@@ -161,7 +160,7 @@ public class Album extends Entity {
     public void setGroup(Set<Group> group) {
         notNull(group);
 
-        if (group.size() == 0) {
+        if (group.isEmpty()) {
             throw new IllegalArgumentException("Group list contains no instrument");
         }
 
@@ -175,7 +174,7 @@ public class Album extends Entity {
     public void setInstruments(Set<MusicianInstrument> instruments) {
         notNull(instruments);
 
-        if (instruments.size() == 0) {
+        if (instruments.isEmpty()) {
             throw new IllegalArgumentException("Instrument list contains no instrument");
         }
 
@@ -197,7 +196,7 @@ public class Album extends Entity {
 
     public void setComments(List<Comment> comments) {
         notNull(comments);
-        if (comments.size() == 0) {
+        if (comments.isEmpty()) {
             throw new IllegalArgumentException("Comment list contains no comment");
         }
     }
@@ -208,11 +207,11 @@ public class Album extends Entity {
 
     public void setTracks(List<Track> tracks) {
         notNull(tracks);
-        if (tracks.size() == 0) {
+        if (tracks.isEmpty()) {
             throw new IllegalArgumentException("Track list contains no track");
         }
 
-        if (tracks.size() != 0) {
+        if (!tracks.isEmpty()) {
             for (int i = 0; i < tracks.size(); i++) {
                 notNull(tracks.get(i));
                 Track track1 = tracks.get(i);
