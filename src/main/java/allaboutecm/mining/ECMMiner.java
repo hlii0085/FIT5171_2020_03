@@ -8,7 +8,6 @@ import java.time.Year;
 import java.util.*;
 
 /**
- * TODO: implement and test the methods in this class.
  * Note that you can extend the Neo4jDAO class to make implementing this class easier.
  */
 public class ECMMiner {
