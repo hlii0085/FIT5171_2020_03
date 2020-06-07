@@ -54,12 +54,13 @@ public class Musician extends Entity {
         notNull(name);
         notBlank(name);
         String[] nameStrings = name.split(" ");
+        String a = "name must contain one blank";
         if(nameStrings.length == 1) {
-            throw new IllegalArgumentException("name must contain one blank");
+            throw new IllegalArgumentException(a);
         } else {
             for(String namePart: nameStrings) {
                 if(namePart.equals("")){
-                    throw new IllegalArgumentException("name must contain one blank");
+                    throw new IllegalArgumentException(a);
                 }
             }
         }
@@ -76,13 +77,14 @@ public class Musician extends Entity {
     public void setName(String name) {
         notNull(name);
         notBlank(name);
+        String b = "name must contain one blank";
         String[] nameStrings = name.split(" ");
         if(nameStrings.length == 1) {
-            throw new IllegalArgumentException("name must contain one blank");
+            throw new IllegalArgumentException(b);
         } else {
             for(String namePart: nameStrings) {
                 if(namePart.equals("")){
-                    throw new IllegalArgumentException("name must contain one blank");
+                    throw new IllegalArgumentException(b);
                 }
             }
         }
