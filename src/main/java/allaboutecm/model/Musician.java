@@ -154,9 +154,9 @@ public class Musician extends Entity {
         return wikipediaUrl;
     }
 
-    public void setWikipediaUrl(URL WikipediaUrl) {
-        notNull(WikipediaUrl);
-        this.musicianUrl = WikipediaUrl;
+    public void setWikipediaUrl(URL wiki) {
+        notNull(wiki);
+        this.musicianUrl = wiki;
     }
 
     public List<Comment> getComment() {
